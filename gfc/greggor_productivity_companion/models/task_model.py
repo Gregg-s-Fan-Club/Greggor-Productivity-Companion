@@ -1,6 +1,6 @@
 from django.db import models
 from greggor_productivity_companion.models import User, Category
-from .work_period import WorkPeriod
+from greggor_productivity_companion import models as gfc
 
 
 class Task(models.Model):
@@ -12,6 +12,7 @@ class Task(models.Model):
     actual_work_time: models.DurationField = models.DurationField(blank=False)
     category: models.ForeignKey = models.ForeignKey(Category, on_delete=models.CASCADE)
     completed: models.BooleanField = models.BooleanField(default=False)
+    bonus_points = models.IntegerField(blank=False, default=0)
     
     def get_user_tasks_for_category(self) -> list:
             """Return list of the users transactions"""
@@ -23,9 +24,12 @@ class Task(models.Model):
     class Meta:
         unique_together = ['user', 'name', 'category']
 
+
     def get_task_points(self):
-        work_periods = WorkPeriod.objects.filter(user = self)
+        work_periods = gfc.WorkPeriod.objects.filter(user = self)
         points = 0
         for period in work_periods:
             points += period.points
         return points
+
+

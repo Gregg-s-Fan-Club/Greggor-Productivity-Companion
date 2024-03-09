@@ -20,24 +20,24 @@ def display_work_period_view(request: HttpRequest) -> HttpRequest:
 
 def create_work_period(request: HttpRequest) -> HttpResponse:
 
-    task = request.task
+    user = request.user
     if request.method == 'POST':
-        form = WorkPeriodForm(request.POST)
+        form = WorkPeriodForm(user,request.POST)
         if form.is_valid():
-            form.save()
+            form.save(user)
             messages.add_message(
                 request, messages.SUCCESS, "Your work period has been added successfully")
             return redirect('dashboard',)
     else:
-        form = WorkPeriodForm()
+        form = WorkPeriodForm(user)
     return render(request, "pages/add_work_period.html", {'form': form, 'edit': False})
 
 def edit_work_periods(request: HttpRequest, pk):
 
     try:
         work_period = WorkPeriod.objects.get(id=pk)
-        task = request.task
-        if(work_period.task != task):
+        user = request.user
+        if(work_period.task.user != user):
             return redirect('dashboard')
     except ObjectDoesNotExist:
         messages.add_message(
@@ -48,7 +48,7 @@ def edit_work_periods(request: HttpRequest, pk):
     
     if request.method =='POST':
         form = WorkPeriodForm(
-            request.POST, instance = work_period)
+            user, request.POST, instance = work_period)
         if form.is_valid():
             form.save(instance = work_period)
             messages.add_message(
@@ -57,7 +57,7 @@ def edit_work_periods(request: HttpRequest, pk):
                 "Your work period has been successfully updated")
             return redirect('dashboard',)
     else:
-        form = WorkPeriodForm(instance=work_period)
+        form = WorkPeriodForm(user,instance=work_period)
     return render(request, "pages/add_work_period.html",
                   {'form': form, 'edit': True,'pk': pk})
 
