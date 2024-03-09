@@ -1,8 +1,8 @@
 body {
     --primary: #0d6efd;
-    --primary2: #00b4d8;
-    --secondary: white;
-    --tertiary: black;
+    --secondary: #FF842B;
+    --prime1: white;
+    --prime2: black;
 
     --transition: all 0.3s ease;
     --borderradsize: 0.2rem;
@@ -58,8 +58,7 @@ body {
     transition: var(--transition);
     text-decoration: bold;
     color: var(--primary);
-    background-color: var(--secondary);
-    font-size: 0.2rem;
+    background-color: var(--prime1);
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -69,9 +68,10 @@ body {
     user-select: none;
     padding: 0.5rem;
     text-decoration: none;
+    min-width: 7rem;
 }
 .gfcButton:hover {
-    color: var(--secondary);
-    background-color: var(--primary2);
-    box-shadow: rgba(255, 255, 255, 0.24) 0px 3px 8px;
+    color: var(--prime1);
+    border-color: var(--primary2);
+    background-color: var(--secondary);
 }
