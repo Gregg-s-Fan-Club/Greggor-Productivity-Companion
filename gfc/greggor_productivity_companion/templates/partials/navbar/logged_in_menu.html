@@ -1,12 +1,16 @@
 <a class="gfcButton" href="{% url 'dashboard' %}">
-  <h5 class="gfcInset">Dashboard</h5>
+  <h5>Dashboard</h5>
 </a>
 
-<a class="gfcButton" href="https://www.etsy.com/uk/shop/GreggorFanClub">
-  <h5 class="gfcInset">Merch</h5>
+<a class="gfcButton" href="{% url 'dashboard' %}">
+  <h5>Tasks</h5>
 </a>
 
-<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+<a class="gfcButton" href="https://www.etsy.com/uk/shop/GreggorFanClub" target="_blank">
+  <h5>Merch</h5>
+</a>
+
+<ul class="navbar-nav ms-auto mb-2 mb-lg-0" style="margin-left:auto">
   <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="user-account-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
       {% include 'partials/greggor_logo.html' with height=50 %}
