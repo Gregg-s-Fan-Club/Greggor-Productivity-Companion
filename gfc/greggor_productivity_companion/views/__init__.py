@@ -7,5 +7,4 @@ from .profile import profile_view, delete_profile_view
 from .tasks import display_tasks_view
 from .edit_user_details import edit_user_details_view
 from .change_password import change_password_view
-from .tasks import display_tasks_view, create_tasks
-
+from .tasks import display_tasks_view, create_tasks, edit_tasks, delete_tasks

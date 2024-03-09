@@ -153,3 +153,6 @@ AUTH_USER_MODEL: str = 'greggor_productivity_companion.User'
 
 # Number of items per pagniated page
 NUMBER_OF_ITEMS_PER_PAGE: int = 10
+
+LOGIN_URL = '/log_in/'
+LOGIN_REDIRECT_URL = '/log_in/'
