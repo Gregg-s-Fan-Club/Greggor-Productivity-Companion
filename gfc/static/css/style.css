@@ -1,12 +1,19 @@
 body {
-    --primary: blue;
+    --primary: #0d6efd;
+    --primary2: #00b4d8;
     --secondary: white;
     --tertiary: black;
 
     --transition: all 0.3s ease;
-    --border: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-    --borderhover: rgba(0, 0, 0, 0.4) 3px 3px 6px 0px inset, rgba(0, 0, 0, 0.2) -3px -3px 6px 1px inset;
-    --borderradsize: 0.5rem;
+    --borderradsize: 0.2rem;
+}
+
+.gfcBGPrimary {
+    background-color: var(--primary);
+}
+
+.gfcBGPrimary2 {
+    background-color: var(--primary2);
 }
 
 .gfcFlexRow {
@@ -24,6 +31,10 @@ body {
     flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
+}
+
+.gfcFlexLast {
+    margin-left:auto;
 }
 
 .gfcFlexContentCenter {
@@ -44,19 +55,14 @@ body {
     gap: 5rem;
 }
 
-.gfcLink {
-    text-decoration: none;
-}
-
 /* button */
 .gfcButton {
     border-radius: var(--borderradsize);
-    box-shadow: var(--border);
     transition: var(--transition);
     text-decoration: bold;
     color: var(--primary);
     background-color: var(--secondary);
-    font-size: 1rem;
+    font-size: 0.2rem;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -64,15 +70,11 @@ body {
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
-}
-.gfcButton .gfcInset {
-    border-radius: inherit;
-    padding: 1rem;
-    transition: inherit;
+    padding: 0.5rem;
+    text-decoration: none;
 }
 .gfcButton:hover {
-    box-shadow: none;
-}
-.gfcButton:hover .gfcInset{
-    box-shadow: var(--borderhover);
+    color: var(--secondary);
+    background-color: var(--primary2);
+    box-shadow: rgba(255, 255, 255, 0.24) 0px 3px 8px;
 }
