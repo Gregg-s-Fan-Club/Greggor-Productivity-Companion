@@ -10,7 +10,8 @@ class UserSignUpForm(forms.ModelForm):
     class Meta:
         model: User = User
         fields: list[str] = [
-            'username'
+            'username',
+            'email'
             ]
         widgets: dict[str: Any] = {'bio': forms.Textarea()}
 
@@ -45,5 +46,6 @@ class UserSignUpForm(forms.ModelForm):
         user = User.objects.create_user(
             self.cleaned_data.get('username'),
             password=self.cleaned_data.get('new_password'),
+            email=self.cleaned_data.get('email'),
         )
         return user

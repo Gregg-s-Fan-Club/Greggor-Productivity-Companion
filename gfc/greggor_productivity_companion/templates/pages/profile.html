@@ -1,0 +1,61 @@
+{% extends "page.html" %}
+{% load static %}
+
+<!-- Title -->
+{% block title %}Profile{% endblock %}
+
+<head>
+  <script src="{% static 'javascript/load_colours.js' %}"></script>
+</head>
+
+<!-- Content -->
+{% block content %}
+<div class="container">
+  <div class="row text-center mb-2">
+    <h1>Profile</h1>
+  </div>
+  <div class="row gx-5 gy-2">
+    <div class="col-lg-4 p-0">
+      <div class="container text-center limit">
+          <a href="" alt="Edit User Picture" class="pb-2 pe-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-person-x" viewBox="0 0 16 16">
+              <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm.256 7a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z"/>
+              <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm-.646-4.854.646.647.646-.647a.5.5 0 0 1 .708.708l-.647.646.647.646a.5.5 0 0 1-.708.708l-.646-.647-.646.647a.5.5 0 0 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 .708-.708Z"/>
+            </svg>
+          </a>
+       
+      </div>
+    </div>
+    <div class="col">
+      <div class="row">
+        <div class="card text-bg-primary">
+          <div class="card-body">
+            <div class="row mb-2 text-center">
+              <div class="col-lg-auto col-md-12"><h3 class="card-title">{{user.username}}</h3></div>
+            </div>
+            <div class="row">
+              <div class="col-auto">
+                <p class="card-text"><b>Username:</b></p>
+                <p class="card-text"><b>Email:</b></p>
+                <p class="card-text"><b>Points:</b></p>
+              </div>
+              <div class="col">
+                <p class="card-text">{{user.username}} {{user.last_name}}</p>
+                <p class="card-text">{{user.email}}</p>
+                <p class="card-text">{{user.points}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="text-center">
+          <a class="btn btn-outline-info mx-1 my-1" href="">Change Password</a>
+          <a class="btn btn-outline-primary mx-1 my-1" href="">Edit Profile</a>
+          <a class="btn btn-outline-danger mx-1 my-1" onclick="return confirm('Are you sure you want to delete your profile?')" href="">Delete Profile</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
