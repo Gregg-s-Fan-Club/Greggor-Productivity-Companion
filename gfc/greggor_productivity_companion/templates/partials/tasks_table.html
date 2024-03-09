@@ -1,19 +1,42 @@
-<div class="row">
-  <div class="col-12">
-    <div>
-        <form action="{% url 'filter_task_request'%}" method="post">
+<script>
+  function submitFilterCategoryForm() {
+    let form = document.getElementById("filterRequestForm")
+    let category = document.getElementById("selectCategory")
+    let categoryInput = document.getElementById("submitFilterCategory")
+
+    categoryInput.value = category.value
+    form.submit()
+  }
+</script>
+
+<div class="gfcFlexContentStart gfcFlexRow gfcSmallGap col-12 background-secondary">
+  <a href='{% url 'create_tasks' %}' class="btn btn-info">New Task</a>
+
+  <div class="col-12 col-md-2 gfcFlexLast">
+    <div class="card h-100 border-0">
+      <form class="p-2"action="{% url 'filter_task_request'%}" method="post" id="filterRequestForm">
         {% csrf_token %}
-        <div class="text-center">
+
+        <input type="hidden" id="submitFilterCategory" name="category">
+
+        <select id="selectCategory">
           {% for category in categories %}
-          <tr class="text-center">
-            <input type = "submit" name = category value = "{{category.name}}" class= "btn btn-primary my-1">
-          </tr>
-        {% endfor %}
-        <input type = "submit" name = category value = "ALL" class= "btn btn-primary my-1">
-        </div>
+            <option value="{{category.name}}">{{category.name}}</option>
+          {% endfor %}
+        </select>
+        </br>
+        </br>
+
+        <div onclick="submitFilterCategoryForm()" class="btn btn-primary">Filter Category</div>
       </form>
     </div>
-    <br>
+  </div>
+</div>
+
+</br>
+
+<div class="row">
+  <div class="col-12">
     <div class="container container-scrollableX p-0 mb-2">
       <table class="table table-bordered table-striped text-center" >
         <thead class = "table-primary">

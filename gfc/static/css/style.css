@@ -33,6 +33,10 @@ body {
     align-items: center;
 }
 
+.gfcFlexLast {
+    margin-left:auto;
+}
+
 .gfcFlexContentCenter {
     justify-content: center;
 }
