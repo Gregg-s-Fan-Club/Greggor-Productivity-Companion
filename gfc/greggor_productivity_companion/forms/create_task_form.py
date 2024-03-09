@@ -31,6 +31,14 @@ class TaskForm(forms.ModelForm):
 
     # category= forms.ChoiceField(choices=categories) 
 
+    def clean(self):
+        super().clean()
+        cleaned_data = self.cleaned_data
+        if Task.objects.filter(user=self.user,name=cleaned_data['name'],         
+                                   category=cleaned_data['category']).exists():
+            self.add_error('name', 'Task with this name and category exists')
+
+        
 
     def save(self, instance = None) :
         """Create a new task."""

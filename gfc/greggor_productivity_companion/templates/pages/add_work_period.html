@@ -1,0 +1,27 @@
+{% extends "page.html" %}
+{% load static %}
+
+<!-- Title -->
+{% block title %}Work Period Form{% endblock %}
+
+<!-- Content -->
+{% block content %}
+   
+    
+    <h1>Work Period Form</h1>
+
+     {% if edit %}
+      <form action='{% url 'edit_work_periods' pk %}' method="post" enctype='multipart/form-data'>
+    {% else %} 
+    <form action='{% url 'create_work_period'%}' method="post" enctype='multipart/form-data'>
+     {% endif %} 
+      {% csrf_token %}
+
+      {% include 'partials/form.html' with form=form %}
+      <button type="submit" name="submit_type" value="Submit Task" class="btn btn-primary">
+    {% if edit %}
+        Edit Work Period
+        {% else %}
+            Create Work Period
+        {% endif %} 
+{% endblock %}

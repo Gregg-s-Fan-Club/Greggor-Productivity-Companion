@@ -9,11 +9,14 @@ from datetime import datetime
 class WorkPeriod(models.Model):
     """Work Period model for period user spends on task"""
 
-    date = models.DateField(unique=True, blank=False)
+    date = models.DateField(blank=False)
     start_time = models.TimeField(auto_now=False, auto_now_add=False) 
     end_time = models.TimeField(auto_now=False, auto_now_add=False) 
     points = models.IntegerField(blank=False)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ['date', 'task', 'start_time', 'end_time']
 
     def get_hours_spent(self):
         t1 = datetime.strptime(self.start_time, "%H:%M:%S")
@@ -25,3 +28,4 @@ class WorkPeriod(models.Model):
         return hours_difference
         
         
+
