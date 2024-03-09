@@ -2,7 +2,6 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.core.validators import RegexValidator
 from greggor_productivity_companion.models import Task
-import greggor_productivity_companion.models as fcmodels
 from datetime import datetime
 
 
