@@ -47,6 +47,10 @@ class TaskForm(forms.ModelForm):
                 completed =  self.cleaned_data.get('completed')
             )
         else:
+            if task.completed == False and self.cleaned_data.get('completed') == True:
+                pass
+                # add extra points
+                # remove extra points
             task = instance
             task.name = self.cleaned_data.get('name')
             task.description = self.cleaned_data.get('description')

@@ -12,6 +12,7 @@ class Task(models.Model):
     actual_work_time: models.DurationField = models.DurationField(blank=False)
     category: models.ForeignKey = models.ForeignKey(Category, on_delete=models.CASCADE)
     completed: models.BooleanField = models.BooleanField(default=False)
+    pointsForCurrentCycle = models.IntegerField(blank=False, default = 0)
     
     def get_user_tasks_for_category(self) -> list:
             """Return list of the users transactions"""
@@ -23,7 +24,16 @@ class Task(models.Model):
     class Meta:
         unique_together = ['user', 'name', 'category']
 
+
     def get_task_work_periods(self, filter_type = "all"):
         work_periods = fcmodels.WorkPeriod.objects.filter(task=self)
 
         return work_periods
+
+
+    def calculatePoints(self, points):
+        categoryPoint = Category.objects.filter(id = self.category.id)[0]
+        pointsForCurrentCycle += points
+        return min(pointsForCurrentCycle, categoryPoint)
+        
+
