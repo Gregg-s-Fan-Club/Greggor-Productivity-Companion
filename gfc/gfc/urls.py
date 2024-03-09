@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, URLPattern
 from greggor_productivity_companion import views
 
 urlpatterns = [
@@ -23,5 +23,6 @@ urlpatterns = [
         'log_in/',
         views.log_in_view,
         name='log_in'
-    )
+    ),
+    path('dashboard/', views.dashboard_view, name='dashboard')
 ]
