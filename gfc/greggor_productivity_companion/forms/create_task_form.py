@@ -20,9 +20,8 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ['name', 'description', 'expected_work_time','actual_work_time','completed', 'category']
-        widgets = {'description': forms.Textarea(),'expected_work_time': forms.TextInput(attrs={'placeholder': 'hh:mm:ss', 'class': 'form-control'}),
-        'actual_work_time': forms.TextInput(attrs={'placeholder': 'hh:mm:ss', 'class': 'form-control'})}
+        fields = ['name', 'description', 'expected_work_time','completed', 'category']
+        widgets = {'description': forms.Textarea(),'expected_work_time': forms.TextInput(attrs={'placeholder': 'hh:mm:ss', 'class': 'form-control'})}
         
     # categories = ()
     # for category in Category.objects.all():
@@ -51,7 +50,6 @@ class TaskForm(forms.ModelForm):
                 description=self.cleaned_data.get('description'),
                 category = self.cleaned_data.get('category'),
                 expected_work_time =  self.cleaned_data.get('expected_work_time'),
-                actual_work_time =  self.cleaned_data.get('actual_work_time'),
                 completed =  self.cleaned_data.get('completed')
             )
         else:
@@ -64,7 +62,6 @@ class TaskForm(forms.ModelForm):
             task.description = self.cleaned_data.get('description')
             task.category = self.cleaned_data.get('category')
             task.expected_work_time = self.cleaned_data.get('expected_work_time')
-            task.actual_work_time =  self.cleaned_data.get('actual_work_time')
             task.completed =  self.cleaned_data.get('completed')
 
             task.save()

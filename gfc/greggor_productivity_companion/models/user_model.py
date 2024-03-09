@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.core.validators import RegexValidator
-import greggor_productivity_companion.models as fcmodels
+import greggor_productivity_companion.models as gpcmodels
 
 class User(AbstractUser):
     """User model used for authentication"""
@@ -15,13 +15,12 @@ class User(AbstractUser):
         )]
     )
     email = models.EmailField(unique=True, blank=False)
-    points = models.IntegerField(blank=False, default = 0)
 
     def get_user_points(self, category_type = "ALL"):
         if category_type == "ALL":
-            tasks = Task.objects.filter(user = self)
+            tasks = gpcmodels.Task.objects.filter(user = self)
         else:
-            tasks = Task.objects.filter(user = self, category = category_type)
+            tasks = gpcmodels.Task.objects.filter(user = self, category = category_type)
         points = 0
         for task in tasks:
             points += task.get_task_points()
