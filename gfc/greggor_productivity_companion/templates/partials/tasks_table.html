@@ -1,10 +1,15 @@
 <script>
   function submitFilterCategoryForm() {
     let form = document.getElementById("filterRequestForm")
+
     let category = document.getElementById("selectCategory")
     let categoryInput = document.getElementById("submitFilterCategory")
 
+    let completed = document.getElementById("selectCompleted")
+    let completedInput = document.getElementById("submitFilterCompleted")
+
     categoryInput.value = category.value
+    completedInput.value = completed.value
     form.submit()
   }
 </script>
@@ -14,37 +19,53 @@
     <a href='{% url 'create_tasks' %}' class="btn btn-info">New Task</a>
   </div>
   
-  <div class="col-12 col-md-2 gfcFlexLast">
+  <div class="col-12 col-md-3 gfcFlexLast">
     <div class="card h-100 border-0">
       <form class="p-2"action="{% url 'filter_task_request'%}" method="post" id="filterRequestForm">
         {% csrf_token %}
 
         <input type="hidden" id="submitFilterCategory" name="category">
+        <input type="hidden" id="submitFilterCompleted" name="completed">
 
-        <select id="selectCategory">
-          {% if filter_type == "ALL" %}
-            <option value="ALL" selected>All Categories</option>
-          {% else %}
-            <option value="ALL">All Categories</option>
-          {% endif %}
-
-          {% for category in categories %}
-            {% if filter_type == category.name %}
-              <option value="{{category.name}}" selected>{{category.name}}</option>
+        <div class="gfcFlewRow gfcSmallGap">
+          <select id="selectCategory">
+            {% if category_type == "ALL" %}
+              <option value="ALL" selected>All Categories</option>
             {% else %}
-              <option value="{{category.name}}">{{category.name}}</option>
+              <option value="ALL">All Categories</option>
             {% endif %}
-          {% endfor %}
-        </select>
-        <select id="selectCompleted">
-          <option value="ALL">All Completed</option>
-          <option value="completed">completed</option>
-          <option value="uncompleted">uncompleted</option>
-        </select>
-        </br>
+
+            {% for category in categories %}
+              {% if category_type == category.name %}
+                <option value="{{category.name}}" selected>{{category.name}}</option>
+              {% else %}
+                <option value="{{category.name}}">{{category.name}}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+
+          <select id="selectCompleted">
+            {% if completed_type == "ALL" %}
+              <option value="ALL" selected>All Completed</option>
+            {% else %}
+              <option value="ALL">All Completed</option>
+            {% endif %}
+            {% if completed_type == "Completed" %}
+              <option value="Completed" selected>Completed</option>
+            {% else %}
+              <option value="Completed">Completed</option>
+            {% endif %}
+            {% if completed_type == "Uncompleted" %}
+              <option value="Uncompleted" selected>Uncompleted</option>
+            {% else %}
+              <option value="Uncompleted">Uncompleted</option>
+            {% endif %}
+          </select>
+        </div>
+
         </br>
 
-        <div onclick="submitFilterCategoryForm()" class="btn btn-primary">Filter Category</div>
+        <div onclick="submitFilterCategoryForm()" class="btn btn-primary">Filter</div>
       </form>
     </div>
   </div>
@@ -52,7 +73,10 @@
 
 </br>
 
-<h6>Selected Category Filter: {{filter_type}}</h6>
+<div class="gfcFlexRow">
+  <h6>Selected Category Filter: {{category_type}}</h6>
+  <h6 class="gfcFlexLast">Selected Completed Filter: {{completed_type}}</h6>
+</div>
 <div class="row">
   <div class="col-12">
     <div class="container container-scrollableX p-0 mb-2">
