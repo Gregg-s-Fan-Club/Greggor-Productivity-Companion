@@ -10,7 +10,7 @@ class User(admin.ModelAdmin):
     """Configuration of the admin interface for user."""
 
     list_display = [
-        'id', 'username', 'email', 'points']
+        'id', 'username', 'email']
 
 @admin.register(Category)
 class Category(admin.ModelAdmin):
