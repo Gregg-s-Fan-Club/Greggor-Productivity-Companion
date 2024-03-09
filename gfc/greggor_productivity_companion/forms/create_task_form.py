@@ -14,7 +14,7 @@ class TaskForm(forms.ModelForm):
         category: forms.ChoiceField = forms.ChoiceField(choices=Category.objects.all(), label="Category"
     )
 
-    def save(self, current_user, instance = None, category) :
+    def save(self, current_user, category, instance = None) :
         """Create a new task."""
         super().save(commit=False)
         if instance is None:
