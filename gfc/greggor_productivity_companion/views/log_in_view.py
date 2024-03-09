@@ -37,4 +37,4 @@ def log_out_view(request) -> HttpResponse:
         request,
         messages.SUCCESS,
         "You've logged out successfully")
-    return redirect('home')
+    return redirect('log_in')
