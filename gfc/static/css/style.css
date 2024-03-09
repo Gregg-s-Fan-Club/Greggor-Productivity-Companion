@@ -26,11 +26,8 @@ body {
 
 .gfcFlexColumn {
     display: flex;
-    align-items: center;
-    text-align: center;
     flex-direction: column;
     flex-wrap: wrap;
-    align-items: center;
 }
 
 .gfcFlexLast {
