@@ -10,7 +10,7 @@ from django.contrib import messages
 
 
 @login_required
-def display_tasks_view(request: HttpRequest, filter_type = "ALL") -> HttpResponse:
+def display_tasks_view(request: HttpRequest, filter_type = "ALL", completed="ALL") -> HttpResponse:
     """View to display the users transactions"""
     user: User = request.user
     categories = Category.objects.all()
@@ -18,12 +18,9 @@ def display_tasks_view(request: HttpRequest, filter_type = "ALL") -> HttpRespons
         list_of_tasks = Task.objects.filter(user=user, category = Category.objects.filter(name=filter_type)[0])
     else:
         list_of_tasks = Task.objects.filter(user=user)
-    # task: list[Task] = sorted(
-    #     list(
-    #         dict.fromkeys(
-    #             user.get_user_transactions(filter_type))),
-    #     key=lambda x: x.time_of_transaction,
-    #     reverse=True)
+
+    if completed != "ALL":
+        list_of_tasks=list_of_tasks.filter(completed = completed)
 
     list_of_tasks: Page = paginate(
         request.GET.get('page', 1), list_of_tasks)
@@ -34,6 +31,7 @@ def display_tasks_view(request: HttpRequest, filter_type = "ALL") -> HttpRespons
 @login_required
 def filter_task_request(request) -> HttpResponse:
     """Filters transactions and sets redirect to input page with filter"""
+    print(request.POST)
     return redirect("display_tasks", request.POST['category'])
     
 
