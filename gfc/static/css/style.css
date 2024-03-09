@@ -8,14 +8,6 @@ body {
     --borderradsize: 0.2rem;
 }
 
-.gfcBGPrimary {
-    background-color: var(--primary);
-}
-
-.gfcBGPrimary2 {
-    background-color: var(--primary2);
-}
-
 .gfcFlexRow {
     display: flex;
     text-align: center;
@@ -74,4 +66,29 @@ body {
     color: var(--prime1);
     border-color: var(--primary2);
     background-color: var(--secondary);
+}
+
+.gfcCard {
+    width: 20vw;
+    height: 20vh;
+    text-decoration: none;
+    background-color: var(--prime1);
+    color: var(--primary);
+    transition: var(--transition);
+    border-radius: 0.5rem;
+    border-style: ridge;
+    border-width: 0.5rem;
+    border-color: var(--primary);
+}
+.gfcCard:hover {
+    border-color: var(--secondary);
+    color: var(--prime1);
+    background-color: var(--primary);
+}
+
+.gfcClickable {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+.gfcClickable:hover {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }

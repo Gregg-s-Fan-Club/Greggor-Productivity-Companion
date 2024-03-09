@@ -1,0 +1,7 @@
+{% if django_url %}
+    <a class="gfcCard gfcClickable gfcFlexRow gfcFlexContentCenter" href="{% url link %}">
+{% else %}
+    <a class="gfcCard gfcClickable gfcFlexRow gfcFlexContentCenter" href="{{link}}" target="_blank">
+{% endif %}
+    <h3>{{page_name}}</h2>
+</a>
