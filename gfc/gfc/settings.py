@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'greggor_productivity_companion'
+    'greggor_productivity_companion',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

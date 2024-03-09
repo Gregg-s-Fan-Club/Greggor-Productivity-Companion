@@ -1,1 +1,7 @@
 Django==4.2.7
+django-widget-tweaks==1.4.12
+django-session-timeout==0.1.0
+autopep8==2.0.1
+inflect==6.0.2
+pycodestyle==2.10.0
+holidays==0.18

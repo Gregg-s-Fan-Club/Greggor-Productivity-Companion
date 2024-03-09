@@ -1,0 +1,21 @@
+{% extends "page.html" %}
+
+<!-- Title -->
+{% block title %}Log In{% endblock %}
+
+<!-- Content -->
+{% block content %}
+    <h1>User Log In</h1>
+    <form action='{% url 'log_in' %}' method="post">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}">
+      {% include 'partials/form.html' with form=form %}
+      <input type="submit" value="Log in" class="btn btn-primary">
+    </form>
+    <br>
+
+    <br><br>
+
+    Haven't got an account yet?
+    <a href='{% url 'sign_up' %}' class="btn btn-sm btn-info mx-3">Sign up</a>
+{% endblock %}
