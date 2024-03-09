@@ -20,6 +20,6 @@ from greggor_productivity_companion import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('dashboard/', views.dashboard_view, name='dashboard')
-    path('display_tasks/', views.tasks, name ='tasks')
+    path('dashboard/', views.dashboard_view, name='dashboard'),
+    path('display_tasks/', views.display_tasks_view, name ='tasks')
 ]

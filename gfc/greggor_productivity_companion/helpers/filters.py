@@ -1,3 +1,5 @@
+
+
 class TaskType(models.TextChoices):
     """ENUM for transaction types"""
     WORK: str = "work"

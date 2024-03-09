@@ -22,5 +22,4 @@ class User(AbstractUser):
             tasks: list[fcmodels.Tasks] = fcmodels.Task.objects.filter(
                 user=self)
 
-            return sorted(
-                tasks, key=lambda task: task.time_of_transaction, reverse=True)
+            return tasks

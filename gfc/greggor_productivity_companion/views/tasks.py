@@ -1,16 +1,14 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from ..models import Task, User
-from financial_companion.helpers import FilterTransactionType
 from django.http import HttpRequest, HttpResponse
 from django.urls import reverse
-from financial_companion.helpers import paginate
+from greggor_productivity_companion.helpers import paginate
 from django.core.paginator import Page
 
 
 @login_required
-def view_users_tasks(request: HttpRequest,
-                            filter_type: str = FilterTransactionType.ALL) -> HttpResponse:
+def display_tasks_view(request: HttpRequest) -> HttpResponse:
     """View to display the users transactions"""
     user: User = request.user
 
@@ -24,7 +22,7 @@ def view_users_tasks(request: HttpRequest,
     #     reverse=True)
 
     list_of_tasks: Page = paginate(
-        request.GET.get('page', 1), tasks)
+        request.GET.get('page', 1), list_of_tasks)
 
-    return render(request, "/display_tasks.html",
+    return render(request, "pages/display_tasks.html",
                   {'tasks': list_of_tasks})
