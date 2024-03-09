@@ -20,6 +20,7 @@
         <input type="hidden" id="submitFilterCategory" name="category">
 
         <select id="selectCategory">
+          <option value="ALL">All Categories</option>
           {% for category in categories %}
             <option value="{{category.name}}">{{category.name}}</option>
           {% endfor %}
