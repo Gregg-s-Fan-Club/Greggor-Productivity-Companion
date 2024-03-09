@@ -15,4 +15,4 @@ class User(AbstractUser):
         )]
     )
     email = models.EmailField(unique=True, blank=False)
-    points = models.IntegerField(blank=False)
+    points = models.IntegerField(blank=False, default = 0)
