@@ -30,8 +30,8 @@ urlpatterns = [
     path('sign_up/', views.sign_up_view, name='sign_up'),
     path('dashboard/', views.dashboard_view, name='dashboard'),
     path('profile/', views.profile_view, name='profile'),
-    path('delete_profile/', views.delete_profile_view, name='delete_profile')
-
+    path('delete_profile/', views.delete_profile_view, name='delete_profile'),
+    path('display_tasks/', views.display_tasks_view, name ='display_tasks')
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

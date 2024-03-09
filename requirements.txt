@@ -5,3 +5,4 @@ autopep8==2.0.1
 inflect==6.0.2
 pycodestyle==2.10.0
 holidays==0.18
+setuptools==69.1.1

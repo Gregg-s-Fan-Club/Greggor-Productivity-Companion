@@ -150,3 +150,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # User model for authentication and login purposes
 AUTH_USER_MODEL: str = 'greggor_productivity_companion.User'
+
+# Number of items per pagniated page
+NUMBER_OF_ITEMS_PER_PAGE: int = 10
