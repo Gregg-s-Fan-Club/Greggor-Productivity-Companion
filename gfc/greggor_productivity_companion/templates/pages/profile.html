@@ -52,7 +52,7 @@
         <div class="text-center">
           <a class="btn btn-outline-info mx-1 my-1" href="">Change Password</a>
           <a class="btn btn-outline-primary mx-1 my-1" href="">Edit Profile</a>
-          <a class="btn btn-outline-danger mx-1 my-1" onclick="return confirm('Are you sure you want to delete your profile?')" href="">Delete Profile</a>
+          <a class="btn btn-outline-danger mx-1 my-1" onclick="return confirm('Are you sure you want to delete your profile?')" href="{% url 'delete_profile' %}">Delete Profile</a>
         </div>
       </div>
     </div>

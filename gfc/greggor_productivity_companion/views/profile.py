@@ -20,4 +20,4 @@ def delete_profile_view(request: HttpRequest) -> HttpResponse:
         request,
         messages.WARNING,
         "Your profile has been deleted")
-    return redirect('home')
+    return redirect('log_in')
