@@ -16,10 +16,3 @@ class User(AbstractUser):
     )
     email = models.EmailField(unique=True, blank=False)
     points = models.IntegerField(blank=False, default = 0)
-
-    def get_user_tasks(self, filter_type: str = "all") -> list:
-            """Return list of the users transactions"""
-            tasks: list[fcmodels.Tasks] = fcmodels.Task.objects.filter(
-                user=self)
-
-            return tasks

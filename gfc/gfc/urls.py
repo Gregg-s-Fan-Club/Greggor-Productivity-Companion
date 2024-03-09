@@ -27,7 +27,13 @@ urlpatterns = [
         name='log_in'
     ),
     path('dashboard/', views.dashboard_view, name='dashboard'),
-    path('display_tasks/', views.display_tasks_view, name ='display_tasks')
+    path('display_tasks/<str:filter_type>', views.display_tasks_view, name ='display_tasks'),
+    path('filter_task_request/', views.filter_task_request, name ='filter_task_request'),
+    # path(
+    #     'filter_task_request/<str:filter_type>',
+    #     views.filter_task_request,
+    #     name="filter_task_request"),
+
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
