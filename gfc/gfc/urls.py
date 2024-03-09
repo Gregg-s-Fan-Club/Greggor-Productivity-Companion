@@ -34,7 +34,8 @@ urlpatterns = [
     path('display_tasks/', views.display_tasks_view, name ='display_tasks'),
     path('edit_user_details/', views.edit_user_details_view, name="edit_user_details"),
     path('change_password/', views.change_password_view, name="change_password"),
-    path('create_task/', views.create_tasks, name ='create_tasks')
+    path('create_task/', views.create_tasks, name ='create_tasks'),
+    path('summary/', views.summary_view, name ='summary')
 
 ]
 
