@@ -1,6 +1,6 @@
 from django.db import models
 from greggor_productivity_companion.models import User, Category
-from greggor_productivity_companion import models as gfc
+from greggor_productivity_companion import models as gpcmodels
 from datetime import timedelta
 
 
@@ -26,7 +26,7 @@ class Task(models.Model):
 
 
     def get_task_workflows(self):
-        return gfc.WorkPeriod.objects.filter(task = self)
+        return gpcmodels.WorkPeriod.objects.filter(task = self)
     
     def get_task_points(self):
         work_periods = self.get_task_workflows()
