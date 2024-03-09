@@ -9,4 +9,5 @@ from .edit_user_details import edit_user_details_view
 from .change_password import change_password_view
 from .tasks import display_tasks_view, create_tasks
 from .summary_view import summary_view
+from .work_period import display_work_period_view, create_work_period, delete_work_period, edit_work_periods
 from .tasks import display_tasks_view, create_tasks, edit_tasks, delete_tasks, filter_task_request, view_individual_task 

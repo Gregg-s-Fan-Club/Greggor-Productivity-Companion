@@ -1,0 +1,12 @@
+{% extends 'page.html' %}
+{% block title %}View Tasks{% endblock %}
+
+{% block content %}
+  <div class="text-center">
+  <h1>Tasks</h1>
+  </div>
+
+  <hr class="hr col-12"/>
+  
+  {%include 'partials/work_period_table.html'  with tasks=tasks redirect_name="dashboard" %}
+{% endblock %}

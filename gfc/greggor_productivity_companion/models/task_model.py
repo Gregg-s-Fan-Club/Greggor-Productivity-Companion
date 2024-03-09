@@ -1,5 +1,7 @@
 from django.db import models
 from greggor_productivity_companion.models import User, Category
+import greggor_productivity_companion.models as fcmodels
+
 
 class Task(models.Model):
     """Task model used for different productivity tasks"""
@@ -20,3 +22,8 @@ class Task(models.Model):
 
     class Meta:
         unique_together = ['user', 'name', 'category']
+
+    def get_task_work_periods(self, filter_type = "all"):
+        work_periods = fcmodels.WorkPeriod.objects.filter(task=self)
+
+        return work_periods
