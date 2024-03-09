@@ -37,7 +37,15 @@ urlpatterns = [
     path('create_task/', views.create_tasks, name ='create_tasks'),
     path('summary/', views.summary_view, name ='summary'),
     path('edit_task/<int:pk>', views.edit_tasks, name ='edit_tasks'),
-    path('delete_task/<int:pk>', views.delete_tasks, name ='delete_tasks')
+    path('delete_task/<int:pk>', views.delete_tasks, name ='delete_tasks'),
+    path('display_tasks/<str:filter_type>', views.display_tasks_view, name ='display_tasks'),
+    path('filter_task_request/', views.filter_task_request, name ='filter_task_request'),
+     path('view_individual_task/<int:pk>', views.view_individual_task, name ='view_individual_task'),
+    # path(
+    #     'filter_task_request/<str:filter_type>',
+    #     views.filter_task_request,
+    #     name="filter_task_request"),
+
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

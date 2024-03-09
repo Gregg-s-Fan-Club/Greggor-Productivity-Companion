@@ -11,6 +11,12 @@ class Task(models.Model):
     category: models.ForeignKey = models.ForeignKey(Category, on_delete=models.CASCADE)
     completed: models.BooleanField = models.BooleanField(default=False)
     
+    def get_user_tasks_for_category(self) -> list:
+            """Return list of the users transactions"""
+            tasks: list[fcmodels.Tasks] = fcmodels.Task.objects.filter(
+                user=self, category=filter_type)
+
+            return tasks
 
     class Meta:
         unique_together = ['user', 'name', 'category']
