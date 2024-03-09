@@ -3,7 +3,7 @@ from django.shortcuts import render
 from greggor_productivity_companion.models import User, Category, Task
 from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def dashboard_view(request):
     
     context = {}
