@@ -65,7 +65,7 @@
             <td>{{task.name}}</td>
             <td>{{task.description}}</td>
             <td>{{task.category.name}}</td>
-            <td>{{task.completed}}</td>
+            <td>{% include 'partials/boolean.html' with bool=task.completed size_tag="h5" %}</td>
             <td> <a href="{% url 'view_individual_task' pk=task.id%}" class="btn btn-sm btn-outline-primary justify-content-center">View Info</a</td>
           </tr>
         {% endfor %}
