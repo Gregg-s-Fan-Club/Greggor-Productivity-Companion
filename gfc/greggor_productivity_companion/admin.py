@@ -24,7 +24,7 @@ class Task(admin.ModelAdmin):
     """Configuration of the admin interface for task."""
 
     list_display = [
-        'id', 'user', 'name', 'description', 'expected_work_time','actual_work_time','category','completed']
+        'id', 'user', 'name', 'description', 'expected_work_time','category','completed']
 
 @admin.register(WorkPeriod)
 class WorkPeriod(admin.ModelAdmin):

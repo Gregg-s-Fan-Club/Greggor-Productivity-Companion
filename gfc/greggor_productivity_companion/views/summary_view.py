@@ -21,10 +21,6 @@ def summary_view(request: HttpRequest) -> HttpResponse:
         for flow in task_workflows:
             total_hours += flow.get_hours_spent()
 
-
-
-
-
     context: dict[str, Any] = {
         'tasks': recent_tasks, 
         'hours_spent': total_hours
