@@ -26,7 +26,8 @@ def display_tasks_view(request: HttpRequest, filter_type = "ALL", completed="ALL
         request.GET.get('page', 1), list_of_tasks)
 
     return render(request, "pages/display_tasks.html",
-                  {'tasks': list_of_tasks, 'categories': categories})
+                  {'tasks': list_of_tasks, 'categories': categories, 
+                   'filter_type': filter_type})
 
 @login_required
 def filter_task_request(request) -> HttpResponse:

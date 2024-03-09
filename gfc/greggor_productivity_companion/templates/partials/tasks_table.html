@@ -10,8 +10,10 @@
 </script>
 
 <div class="gfcFlexContentStart gfcFlexRow gfcSmallGap col-12 background-secondary">
-  <a href='{% url 'create_tasks' %}' class="btn btn-info">New Task</a>
-
+  <div class="col-12 col-md-2">
+    <a href='{% url 'create_tasks' %}' class="btn btn-info">New Task</a>
+  </div>
+  
   <div class="col-12 col-md-2 gfcFlexLast">
     <div class="card h-100 border-0">
       <form class="p-2"action="{% url 'filter_task_request'%}" method="post" id="filterRequestForm">
@@ -20,9 +22,18 @@
         <input type="hidden" id="submitFilterCategory" name="category">
 
         <select id="selectCategory">
-          <option value="ALL">All Categories</option>
+          {% if filter_type == "ALL" %}
+            <option value="ALL" selected>All Categories</option>
+          {% else %}
+            <option value="ALL">All Categories</option>
+          {% endif %}
+
           {% for category in categories %}
-            <option value="{{category.name}}">{{category.name}}</option>
+            {% if filter_type == category.name %}
+              <option value="{{category.name}}" selected>{{category.name}}</option>
+            {% else %}
+              <option value="{{category.name}}">{{category.name}}</option>
+            {% endif %}
           {% endfor %}
         </select>
         <select id="selectCompleted">
@@ -41,6 +52,7 @@
 
 </br>
 
+<h6>Selected Category Filter: {{filter_type}}</h6>
 <div class="row">
   <div class="col-12">
     <div class="container container-scrollableX p-0 mb-2">
@@ -58,7 +70,7 @@
             <td>{{task.name}}</td>
             <td>{{task.description}}</td>
             <td>{{task.category.name}}</td>
-            <td>{{task.completed}}</td>
+            <td>{% include 'partials/boolean.html' with bool=task.completed size_tag="h5" %}</td>
             <td> <a href="{% url 'view_individual_task' pk=task.id%}" class="btn btn-sm btn-outline-primary justify-content-center">View Info</a</td>
           </tr>
         {% endfor %}
