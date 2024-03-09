@@ -1,0 +1,18 @@
+{% extends "page.html" %}
+
+<!-- Title -->
+{% block title %}Summary{% endblock %}
+
+<!-- Content -->
+{% block content %}
+  <div class="container p-0">
+    {% for task in tasks %}
+        <p><b>Name:</b> {{task.name}}</p>
+        <p><b>Description:</b> {{task.description}}</p>
+        <p><b>Expected Work Time:</b> {{task.expected_work_time}}</p>
+        <p><b>Actual Work Time:</b> {{task.actual_work_time}}</p>
+        <p><b>Category:</b> {{task.category}}</p>
+        <p><b>Completed:</b> {{task.completed}}</p>
+    {% endfor %}
+  </div>
+{% endblock %}
