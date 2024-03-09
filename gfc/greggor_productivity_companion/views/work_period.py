@@ -7,16 +7,25 @@ from django.urls import reverse
 from greggor_productivity_companion.helpers import paginate
 from django.core.paginator import Page
 from django.contrib import messages
+from itertools import chain
 
 @login_required
-def display_work_period_view(request: HttpRequest) -> HttpRequest:
-    task = request.task
+def display_work_period_view(request: HttpRequest, task_type="ALL") -> HttpRequest:
+    if task_type != "ALL":
+        tasks = Task.objects.filter(user = request.user, name=task_type)
+    else:
+        tasks = Task.objects.filter(user = request.user)
 
-    list_of_work_periods = task.get_task_work_periods()
+    work_periods = WorkPeriod.objects.filter(task = tasks[0])
+    for task in tasks:
+       work_periods = WorkPeriod.objects.filter(task = task) | work_periods
+    work_periods = paginate(request.GET.get('page', 1), work_periods)
+    return render(request, "pages/display_work_periods.html", {'work_periods': work_periods, 'tasks': tasks})
 
-    list_of_work_periods = paginate(request.GET.get('page', 1), list_of_work_periods)
-
-    return render(request, "pages/display_work_periods.html", {'work_periods': list_of_work_periods})
+@login_required
+def filter_task_type_request(request) -> HttpResponse:
+    """Filters transactions and sets redirect to input page with filter"""
+    return redirect("display_work_period_view", request.POST['task'])
 
 def create_work_period(request: HttpRequest) -> HttpResponse:
 
