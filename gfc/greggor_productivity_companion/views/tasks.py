@@ -6,7 +6,7 @@ from django.http import HttpRequest, HttpResponse
 from django.urls import reverse
 from greggor_productivity_companion.helpers import paginate
 from django.core.paginator import Page
-
+from django.contrib import messages
 
 @login_required
 def display_tasks_view(request: HttpRequest) -> HttpResponse:
@@ -46,3 +46,55 @@ def create_tasks(request: HttpRequest) -> HttpResponse:
         form = TaskForm(user)
     return render(request, "pages/add_task.html",
                   {'form': form, 'edit': False})
+
+def edit_tasks(request: HttpRequest, pk) -> HttpResponse:
+    """View to edit a task"""
+
+    try:
+        task = Task.objects.get(id=pk)
+        user: User = request.user
+        if (task.user != user):
+            return redirect('dashboard')
+    except ObjectDoesNotExist:
+        messages.add_message(
+            request,
+            messages.ERROR,
+            "This task cannot be edited.")
+        return redirect('dashboard')
+
+
+    if request.method == 'POST':
+        form = TaskForm(
+            user, request.POST, instance = task)
+        if form.is_valid():
+            form.save(instance = task)
+            messages.add_message(
+                request,
+                messages.SUCCESS,
+                "Your task has been successfully updated")
+            return redirect('dashboard',)
+    else:
+        form = TaskForm(user, instance=task)
+    return render(request, "pages/add_task.html",
+                  {'form': form, 'edit': True,'pk': pk})
+
+def delete_tasks(request: HttpRequest, pk) -> HttpResponse:
+    """View to delete a task"""
+    try:
+        task = Task.objects.get(id=pk)
+        user: User = request.user
+        if (task.user != user):
+            return redirect('dashboard')
+    except ObjectDoesNotExist:
+        messages.add_message(
+            request,
+            messages.ERROR,
+            "This task cannot be deleted.")
+        return redirect('dashboard')
+    else:
+        task.delete()
+        messages.add_message(
+            request,
+            messages.WARNING,
+            "The transaction has been deleted")
+        return redirect('dashboard')

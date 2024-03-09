@@ -35,7 +35,8 @@ urlpatterns = [
     path('edit_user_details/', views.edit_user_details_view, name="edit_user_details"),
     path('change_password/', views.change_password_view, name="change_password"),
     path('create_task/', views.create_tasks, name ='create_tasks')
-
+    path('edit_task/<int:pk>', views.edit_tasks, name ='edit_tasks'),
+    path('delete_task/<int:pk>', views.delete_tasks, name ='delete_tasks')
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
