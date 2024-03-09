@@ -23,7 +23,7 @@ def display_tasks_view(request: HttpRequest, category_type = "ALL", completed_ty
         list_of_tasks=list_of_tasks.filter(completed = True)
     elif completed_type == "Uncompleted":
         list_of_tasks=list_of_tasks.filter(completed = False)
-
+    list_of_tasks[0].get_latest_task_workflow()
     list_of_tasks: Page = paginate(
         request.GET.get('page', 1), list_of_tasks)
 
