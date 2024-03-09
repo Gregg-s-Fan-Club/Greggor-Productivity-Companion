@@ -10,3 +10,4 @@ from .change_password import change_password_view
 from .tasks import display_tasks_view, create_tasks
 from .summary_view import summary_view
 from .tasks import display_tasks_view, create_tasks, edit_tasks, delete_tasks
+from .work_period import display_work_period_view, create_work_period, delete_work_period, edit_work_periods

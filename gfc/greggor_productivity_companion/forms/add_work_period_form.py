@@ -6,14 +6,20 @@ from typing import Any
 class WorkPeriodForm(forms.ModelForm):
     """form to add a new work period"""
 
+    def __init__(self, *args, **kwargs):
+        super(WorkPeriodForm,self).__init__(*args, **kwargs)
+
+        self.fields['task'].queryset = Task.objects.all()
+        self.fields['task'].label_from_instance: str = self.label_from_instance
+
+    def label_from_instance(self, obj) -> str:
+        """Return objects name"""
+        return obj.name
+
     class Meta:
         model = WorkPeriod
-        date = forms.DateInput()
-        start_time = forms.TimeField()
-        end_time = forms.TimeField()
-        fields = ['Date', 'start_time', 'end_time']
-
-        task = forms.ChoiceField(choices=Task.objects.all(), label="Task")
+        fields = ['date', 'start_time', 'end_time', 'task']
+        widgets = {'date': forms.DateField(), 'start_time': forms.TimeField(), 'end_time': forms.TimeField()}
 
     def save(self, current_user, task, instance = None):
 
