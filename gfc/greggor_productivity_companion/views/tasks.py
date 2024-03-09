@@ -10,32 +10,32 @@ from django.contrib import messages
 
 
 @login_required
-def display_tasks_view(request: HttpRequest, filter_type = "ALL") -> HttpResponse:
+def display_tasks_view(request: HttpRequest, category_type = "ALL", completed_type="ALL") -> HttpResponse:
     """View to display the users transactions"""
     user: User = request.user
     categories = Category.objects.all()
-    if filter_type != "ALL":
-        list_of_tasks = Task.objects.filter(user=user, category = Category.objects.filter(name=filter_type)[0])
+    if category_type != "ALL":
+        list_of_tasks = Task.objects.filter(user=user, category = Category.objects.filter(name=category_type)[0])
     else:
         list_of_tasks = Task.objects.filter(user=user)
-    # task: list[Task] = sorted(
-    #     list(
-    #         dict.fromkeys(
-    #             user.get_user_transactions(filter_type))),
-    #     key=lambda x: x.time_of_transaction,
-    #     reverse=True)
+
+    if completed_type == "Completed":
+        list_of_tasks=list_of_tasks.filter(completed = True)
+    elif completed_type == "Uncompleted":
+        list_of_tasks=list_of_tasks.filter(completed = False)
 
     list_of_tasks: Page = paginate(
         request.GET.get('page', 1), list_of_tasks)
 
     return render(request, "pages/display_tasks.html",
                   {'tasks': list_of_tasks, 'categories': categories, 
-                   'filter_type': filter_type})
+                   'category_type': category_type,
+                   'completed_type': completed_type})
 
 @login_required
 def filter_task_request(request) -> HttpResponse:
     """Filters transactions and sets redirect to input page with filter"""
-    return redirect("display_tasks", request.POST['category'])
+    return redirect("display_tasks", request.POST['category'], request.POST['completed'])
     
 
 def create_tasks(request: HttpRequest) -> HttpResponse:

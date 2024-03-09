@@ -6,17 +6,32 @@
 
 <!-- Content -->
 {% block content %}
-<div class="col-12 col-md-4">
+<div class="col-12">
     <div class="card h-100">
-        <div class="card-header">
-            <h4 class="card-title"> Task: {{ task.name }}</h5>
-            <h6 class="card-subtitle text-muted"> Description:{{ task.description }}</h6>
-            <h6 class="card-subtitle text-muted"> Description:{{ task.expected_work_time }}</h6>
-            <h6 class="card-subtitle text-muted"> Description:{{ task.actual_work_time }}</h6>
-            <h6 class="card-subtitle text-muted"> Description:{{ task.category }}</h6>
-            <h6 class="card-subtitle text-muted"> Description:{{ task.completed }}</h6>
-        </div>
+        <div class="card-header bg-dark">
+            <div class="gfcFlexRow">
+                <h4 class="card-title text-white"> {{ task.name }}</h5>
 
+                <div class="gfcFlexLast">
+                    <h6 class="card-subtitle text-silver"> 
+                        Completed {% include 'partials/boolean.html' with bool=task.completed size_tag="h4" %}
+                    </h6>
+                </div>
+            </div>
+
+            <p class="text-silver col-12"> {{ task.description }}</p>
+        </div>
+        <div class="card-body gfcFlexColumn gfcSmallGap">
+            <h6 class="card-subtitle text-muted col-12"> Category: {{ task.category.name }}</h6>
+            <div class="gfcFlexRow gfcSmallGap">
+                <h6 class="text-muted"> Expected Time:</h6>
+                <h4 class="text-white bg-primary p-2 rounded">{{ task.expected_work_time }}</h4>
+            </div>
+            <div class="gfcFlexRow gfcSmallGap">
+                <h6 class="text-muted"> Time Acrued:</h6>
+                <h4 class="text-white bg-primary p-2 rounded">{{ task.actual_work_time }}</h4>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
