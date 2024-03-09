@@ -34,28 +34,37 @@ class WorkPeriodForm(forms.ModelForm):
         super().clean()
         cleaned_data = self.cleaned_data
         print(cleaned_data)
-        date = self.cleaned_data['date']
-        if date > date.today():
-            self.add_error('date', 'Date is in future')
-        end_time = self.cleaned_data['end_time']
-        start_time = self.cleaned_data['start_time']
-        if end_time < start_time:
-            self.add_error('end_time', 'End time is before start time')
-        
-        # super().clean()
-        print(cleaned_data)
-        # cleaned_data = self.cleaned_data
-        if WorkPeriod.objects.filter(date=date,         
-                                   task=cleaned_data['task'],
-                                   start_time=start_time, end_time=end_time).exists():
-            self.add_error('date', 'workPeriod with this date, task, start time and end time exists')
+        if 'date' in self.cleaned_data.keys():
+            date = self.cleaned_data['date']
+
+            if date > date.today():
+                self.add_error('date', 'Date is in future')
+            end_time = self.cleaned_data['end_time']
+            start_time = self.cleaned_data['start_time']
+            if end_time < start_time:
+                self.add_error('end_time', 'End time is before start time')
+            
+            # super().clean()
+            print(cleaned_data)
+            # cleaned_data = self.cleaned_data
+            if WorkPeriod.objects.filter(date=date,         
+                                    task=cleaned_data['task'],
+                                    start_time=start_time, end_time=end_time).exists():
+                self.add_error('date', 'workPeriod with this date, task, start time and end time exists')
+
 
     def calculatePoints(self):
         end_time = self.cleaned_data['end_time']
         start_time = self.cleaned_data['start_time']
         difference = datetime.combine(date.today(), end_time) - datetime.combine(date.today(), start_time)
         minutes = int(difference.total_seconds() / 60)
-        return 0.5 * minutes
+
+        task = self.cleaned_data['task']
+        self.get_total_points_for_current_cycle()
+        return min(task.category.max_points_per_cycle, 0.5 * minutes)
+    
+    def get_total_points_for_current_cycle(self):
+        print(date.today().weekday())
 
     def save(self, current_user, instance = None):
         super().save(commit=False)
@@ -70,10 +79,10 @@ class WorkPeriodForm(forms.ModelForm):
             )
         else:
             workPeriod = instance
-            workPeriod.date = self.cleaned_data.get('date'),
-            workPeriod.start_time = self.cleaned_data.get('start_time'),
-            workPeriod.end_time = self.cleaned_data.get('end_time'),
-            workPeriod.points = self.calculatePoints(),
+            workPeriod.date = self.cleaned_data.get('date')
+            workPeriod.start_time = self.cleaned_data.get('start_time')
+            workPeriod.end_time = self.cleaned_data.get('end_time')
+            workPeriod.points = self.calculatePoints()
             workPeriod.task = self.cleaned_data.get('Task')
 
             workPeriod.save()

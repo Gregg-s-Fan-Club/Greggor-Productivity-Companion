@@ -26,6 +26,8 @@ class WorkPeriod(models.Model):
         minutes_difference = seconds_difference / 60
         hours_difference = minutes_difference / 60
         return hours_difference
+    
+    
         
         
 
