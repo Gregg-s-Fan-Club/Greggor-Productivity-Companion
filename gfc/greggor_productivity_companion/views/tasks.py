@@ -10,7 +10,7 @@ from django.contrib import messages
 
 
 @login_required
-def display_tasks_view(request: HttpRequest, filter_type: "ALL") -> HttpResponse:
+def display_tasks_view(request: HttpRequest, filter_type = "ALL") -> HttpResponse:
     """View to display the users transactions"""
     user: User = request.user
     categories = Category.objects.all()
