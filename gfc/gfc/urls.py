@@ -15,11 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, URLPattern
-
+from django.conf import settings
+from django.conf.urls.static import static
 from greggor_productivity_companion import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path(
+        'log_in/',
+        views.log_in_view,
+        name='log_in'
+    ),
     path('dashboard/', views.dashboard_view, name='dashboard'),
-    path('display_tasks/', views.display_tasks_view, name ='tasks')
+    path('display_tasks/', views.display_tasks_view, name ='display_tasks')
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

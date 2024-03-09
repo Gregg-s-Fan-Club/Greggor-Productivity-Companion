@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'greggor_productivity_companion'
+    'greggor_productivity_companion',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -133,6 +134,14 @@ SESSION_EXPIRE_AFTER_LAST_ACTIVITY: bool = True
 
 STATIC_URL: str = '/static/'
 STATICFILES_DIRS: Path = [os.path.join(BASE_DIR, "static")]
+
+# Media files
+MEDIA_URL: str = '/media/'
+MEDIA_ROOT: Path = os.path.join(BASE_DIR, 'media')
+
+# File upload handler
+FILE_UPLOAD_HANDLERS: list[str] = [
+    'django.core.files.uploadhandler.TemporaryFileUploadHandler']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

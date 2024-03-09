@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12">
     <div>
-        <form action="{% url 'display_tasks' redirect_name=redirect_name %}" method="post">
+        <form action="{% url 'display_tasks'%}" method="post">
         {% csrf_token %}
         <div class="text-center">
         </div>
