@@ -20,21 +20,17 @@
           <tr class="text-center">
               <th scope="col" class="col-1">Name</th>
               <th scope="col" class="col-auto">Description</th>
-              <th scope="col" class="col-auto">Expected Work Time</th>
-              <th scope="col" class="col-auto">Actual Work Time</th>
               <th scope="col" class="col-auto">Category</th>
               <th scope="col" class="col-auto">Completed?</th>
-              <th scope="col" class="col-2"></th>
-          </tr>
+              <th scope="col" class="col-auto">View More</th>
         </thead>
         {% for task in tasks %}
           <tr class="text-center">
             <td>{{task.name}}</td>
             <td>{{task.description}}</td>
-            <td>{{task.expected_work_time}}</td>
-            <td>{{task.actual_work_time}}</td>
             <td>{{task.category.name}}</td>
             <td>{{task.completed}}</td>
+            <td> <a href="{% url 'view_individual_task' pk=task.id%}" class="btn btn-sm btn-outline-primary justify-content-center">View Info</a</td>
           </tr>
         {% endfor %}
       </table>

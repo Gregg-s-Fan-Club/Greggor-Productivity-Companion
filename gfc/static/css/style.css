@@ -1,0 +1,78 @@
+body {
+    --primary: blue;
+    --secondary: white;
+    --tertiary: black;
+
+    --transition: all 0.3s ease;
+    --border: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    --borderhover: rgba(0, 0, 0, 0.4) 3px 3px 6px 0px inset, rgba(0, 0, 0, 0.2) -3px -3px 6px 1px inset;
+    --borderradsize: 0.5rem;
+}
+
+.gfcFlexRow {
+    display: flex;
+    text-align: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.gfcFlexColumn {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.gfcFlexContentCenter {
+    justify-content: center;
+}
+
+.gfcFlexContentStart {
+    justify-content: flex-start;
+}
+
+.gfcSmallGap {
+    gap: 1rem;
+}
+.gfcMediumGap {
+    gap: 3rem;
+}
+.gfcLargeGap {
+    gap: 5rem;
+}
+
+.gfcLink {
+    text-decoration: none;
+}
+
+/* button */
+.gfcButton {
+    border-radius: var(--borderradsize);
+    box-shadow: var(--border);
+    transition: var(--transition);
+    text-decoration: bold;
+    color: var(--primary);
+    background-color: var(--secondary);
+    font-size: 1rem;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+.gfcButton .gfcInset {
+    border-radius: inherit;
+    padding: 1rem;
+    transition: inherit;
+}
+.gfcButton:hover {
+    box-shadow: none;
+}
+.gfcButton:hover .gfcInset{
+    box-shadow: var(--borderhover);
+}

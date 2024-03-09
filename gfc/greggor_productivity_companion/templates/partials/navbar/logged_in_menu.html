@@ -1,66 +1,20 @@
-<div class="collapse navbar-collapse" id="navbarSupportedContent">
-  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'dashboard' %}">
-        <p class="text-white h6">Dashboard</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'spending_summary' %}">
-        <p class="text-white h6">Summary</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'view_accounts' %}">
-        <p class="text-white h6">Accounts</p>
-      </a>
-    </li>
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown" href="#" id="transaction-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <p class="text-white h6">Transactions</p>
-      </a>
-      <ul class="dropdown-menu" aria-labelledby="transaction-dropdown">
-        <li><a class="dropdown-item" href="{% url 'view_transactions_redirect' %}">Transactions</a></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="{% url 'view_recurring_transactions' %}">Subscriptions</a></li>
-      </ul>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'categories_list_redirect' %}">
-        <p class="text-white h6">Categories</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'view_targets' %}">
-        <p class="text-white h6">Targets</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'all_groups_redirect' %}">
-        <p class="text-white h6">Groups</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'quiz' %}">
-        <p class="text-white h6">Quiz</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="https://www.etsy.com/uk/shop/GreggorFanClub" target="_blank">
-        <p class="text-white h6">Merch</p>
-      </a>
-    </li>
-  </ul>
-  <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="user-account-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        {% include 'partials/greggor_logo.html' with height=50 %}
-      </a>
-      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-account-dropdown">
-        <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="{% url 'log_out' %}">Log out</a></li>
-      </ul>
-    </li>
-  </ul>
-</div>
+<a class="gfcButton" href="{% url 'dashboard' %}">
+  <h5 class="gfcInset">Dashboard</h5>
+</a>
+
+<a class="gfcButton" href="https://www.etsy.com/uk/shop/GreggorFanClub">
+  <h5 class="gfcInset">Merch</h5>
+</a>
+
+<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="user-account-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      {% include 'partials/greggor_logo.html' with height=50 %}
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-account-dropdown">
+      <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="{% url 'log_out' %}">Log out</a></li>
+    </ul>
+  </li>
+</ul>

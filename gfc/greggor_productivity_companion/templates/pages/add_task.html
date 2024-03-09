@@ -1,0 +1,39 @@
+{% extends "page.html" %}
+{% load static %}
+
+<!-- Title -->
+{% block title %}Task Form{% endblock %}
+
+<!-- Content -->
+{% block content %}
+   
+    
+    <h1>Task Form</h1>
+
+     {% if edit %}
+      <form action='{% url 'edit_tasks' pk %}' method="post" enctype='multipart/form-data'>
+    {% else %} 
+    <form action='{% url 'create_tasks'%}' method="post" enctype='multipart/form-data'>
+     {% endif %} 
+      {% csrf_token %}
+
+    {% comment %} <div class="row mb-4 gx-2">
+      <div class="col-md-auto">
+        <a class="btn btn-primary" href="{% url 'create_category' %}">Add New Category</a>
+      </div>
+      <div class="col-md-auto">
+        <a class="btn btn-primary" href="{% url 'add_monetary_account' %}">Add New Account</a>
+      </div>
+      <div class="col-md-auto">
+        <a class="btn btn-primary" href="{% url 'add_transactions_via_bank_statement' %}">Upload Bank Statement</a>
+      </div>
+    </div> {% endcomment %}
+
+      {% include 'partials/form.html' with form=form %}
+      <button type="submit" name="submit_type" value="Submit Task" class="btn btn-primary">
+    {% if edit %}
+        Edit Task
+        {% else %}
+            Create Task
+        {% endif %} 
+{% endblock %}
