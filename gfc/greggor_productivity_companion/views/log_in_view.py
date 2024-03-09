@@ -5,8 +5,9 @@ from django.contrib import messages
 from greggor_productivity_companion.forms import UserLogInForm
 from django.contrib.auth.decorators import login_required
 from ..models import User
+from ..helpers import offline_required
 
-
+@offline_required
 def log_in_view(request: HttpRequest) -> HttpResponse:
     """View for users to log in"""
     if request.method == 'POST':

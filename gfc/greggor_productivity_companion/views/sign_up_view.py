@@ -4,7 +4,9 @@ from django.contrib.auth import login
 from greggor_productivity_companion.forms import UserSignUpForm
 from ..models import User
 from django.contrib import messages
+from ..helpers import offline_required
 
+@offline_required
 def sign_up_view(request: HttpRequest) -> HttpResponse:
     """View for the user to create an account"""
     if request.method == 'POST':
