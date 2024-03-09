@@ -9,7 +9,7 @@ class TaskForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         super(TaskForm, self).__init__(*args, **kwargs)
         self.user = user
-
+        self.instance = kwargs.get("instance")
         
         self.fields['category'].queryset = Category.objects.all()
         self.fields['category'].label_from_instance: str = self.label_from_instance
@@ -23,19 +23,25 @@ class TaskForm(forms.ModelForm):
         fields = ['name', 'description', 'expected_work_time','completed', 'category']
         widgets = {'description': forms.Textarea(),'expected_work_time': forms.TextInput(attrs={'placeholder': 'hh:mm:ss', 'class': 'form-control'})}
         
-    # categories = ()
-    # for category in Category.objects.all():
-    #     categories = ((category,category),) + categories
-    #     print(categories)
 
-    # category= forms.ChoiceField(choices=categories) 
 
     def clean(self):
         super().clean()
-        cleaned_data = self.cleaned_data
-        if Task.objects.filter(user=self.user,name=cleaned_data['name'],         
-                                   category=cleaned_data['category']).exists():
-            self.add_error('name', 'Task with this name and category exists')
+        check_unique_together: models.QuerySet[AbstractTarget] = Task.objects.filter(
+            user=self.user,name= self.cleaned_data.get('name'),         
+                                    category= self.cleaned_data.get('category'))
+
+        if self.instance is None:
+            if len(check_unique_together) > 0:
+                self.add_error('name', 'Task with this name and category exists')
+                self.add_error('category', 'Task with this name and category exists')
+        else:
+            if any(check_unique_target_object !=
+                   self.instance for check_unique_target_object in check_unique_together):
+                self.add_error('name', 'Task with this name and category exists')
+                self.add_error('category', 'Task with this name and category exists')
+
+
 
         
 
