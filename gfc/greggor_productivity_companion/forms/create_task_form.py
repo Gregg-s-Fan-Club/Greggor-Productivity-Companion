@@ -6,6 +6,9 @@ from typing import Any
 class TaskForm(forms.ModelForm):
     """Form to add a new task"""
 
+    def __init__(self, user, *args, **kwargs):
+        super(TaskForm, self).__init__(*args, **kwargs)
+        self.user = user
     class Meta:
         model = Task
         fields = ['name', 'description', 'expected_work_time','actual_work_time','completed']
@@ -14,12 +17,12 @@ class TaskForm(forms.ModelForm):
         category: forms.ChoiceField = forms.ChoiceField(choices=Category.objects.all(), label="Category"
     )
 
-    def save(self, current_user, category, instance = None) :
+    def save(self, category, instance = None) :
         """Create a new task."""
         super().save(commit=False)
         if instance is None:
             task = Task.objects.create(
-                user=current_user,
+                user=self.user,
                 name=self.cleaned_data.get('name'),
                 description=self.cleaned_data.get('description'),
                 category = self.cleaned_data.get('Category'),
