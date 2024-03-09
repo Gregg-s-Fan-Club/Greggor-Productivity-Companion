@@ -16,3 +16,15 @@ class User(AbstractUser):
     )
     email = models.EmailField(unique=True, blank=False)
     points = models.IntegerField(blank=False, default = 0)
+
+    def get_user_points(self, category_type = "ALL"):
+        if category_type == "ALL":
+            tasks = Task.objects.filter(user = self)
+        else:
+            tasks = Task.objects.filter(user = self, category = category_type)
+        points = 0
+        for task in tasks:
+            points += task.get_task_points()
+        return points
+            
+    

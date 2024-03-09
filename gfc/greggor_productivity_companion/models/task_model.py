@@ -1,6 +1,6 @@
 from django.db import models
 from greggor_productivity_companion.models import User, Category
-import greggor_productivity_companion.models as fcmodels
+from .work_period import WorkPeriod
 
 
 class Task(models.Model):
@@ -23,7 +23,9 @@ class Task(models.Model):
     class Meta:
         unique_together = ['user', 'name', 'category']
 
-    def get_task_work_periods(self, filter_type = "all"):
-        work_periods = fcmodels.WorkPeriod.objects.filter(task=self)
-
-        return work_periods
+    def get_task_points(self):
+        work_periods = WorkPeriod.objects.filter(user = self)
+        points = 0
+        for period in work_periods:
+            points += period.points
+        return points
