@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, URLPattern
+from django.conf import settings
+from django.conf.urls.static import static
 from greggor_productivity_companion import views
 
 urlpatterns = [
@@ -26,3 +28,6 @@ urlpatterns = [
     ),
     path('dashboard/', views.dashboard_view, name='dashboard')
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
