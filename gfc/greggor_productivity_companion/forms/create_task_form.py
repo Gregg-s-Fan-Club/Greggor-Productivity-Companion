@@ -27,21 +27,21 @@ class TaskForm(forms.ModelForm):
         
 
 
-    def clean(self):
-        super().clean()
-        check_unique_together: models.QuerySet[AbstractTarget] = Task.objects.filter(
-            user=self.user,name= self.cleaned_data.get('name'),         
-                                    category= self.cleaned_data.get('category'))
+    # def clean(self):
+    #     super().clean()
+    #     check_unique_together: models.QuerySet[AbstractTarget] = Task.objects.filter(
+    #         user=self.user,name= self.cleaned_data.get('name'),         
+    #                                 category= self.cleaned_data.get('category'))
 
-        if self.instance is None:
-            if len(check_unique_together) > 0:
-                self.add_error('name', 'Task with this name and category exists')
-                self.add_error('category', 'Task with this name and category exists')
-        else:
-            if any(check_unique_target_object !=
-                   self.instance for check_unique_target_object in check_unique_together):
-                self.add_error('name', 'Task with this name and category exists')
-                self.add_error('category', 'Task with this name and category exists')
+    #     if self.instance is None:
+    #         if len(check_unique_together) > 0:
+    #             self.add_error('name', 'Task with this name and category exists')
+    #             self.add_error('category', 'Task with this name and category exists')
+    #     else:
+    #         if any(check_unique_target_object !=
+    #                self.instance for check_unique_target_object in check_unique_together):
+    #             self.add_error('name', 'Task with this name and category exists')
+    #             self.add_error('category', 'Task with this name and category exists')
 
 
 

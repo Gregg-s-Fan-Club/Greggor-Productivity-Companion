@@ -21,9 +21,6 @@ class Task(models.Model):
 
             return tasks
 
-    class Meta:
-        unique_together = ['user', 'name', 'category']
-
 
     def get_task_workflows(self):
         return gpcmodels.WorkPeriod.objects.filter(task = self)
