@@ -69,14 +69,14 @@
                 return d[0] + " : " + d[1];
             })
             .attr("y", function(d) {
-                    return h - (d[1] * hScale) + 15; // text in block height
+                    return h - 10
             })
             .attr("x", function(d, i) {
                 return i * (w / dataset.length) + (w / dataset.length - barPadding) / 2; // text on correct block width centered
             })
             .attr("font-family", "sans-serif")
             .attr("font-size", "15px")
-            .attr("fill", "white")
+            .attr("fill", "orange")
             .attr("text-anchor", "middle")
     }
 
