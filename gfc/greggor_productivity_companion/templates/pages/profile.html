@@ -10,61 +10,62 @@
 
 <!-- Content -->
 {% block content %}
-<div class="container">
-  <div class="row text-center mb-2">
-    <h1>Profile</h1>
-  </div>
-  <div class="row gx-5 gy-2">
-    <div class="col-lg-4 p-0">
-      <div class="container text-center limit">
-          <div alt="Edit User Picture" class="pb-2 pe-2">
-            {% include 'partials/greggor_logo.html' with height=50 greggor_type=user.profile_icon %}
-          </div>
-       
-      </div>
-    </div>
-    <div class="col">
-      <div class="row">
-        <div class="card text-bg-primary">
-          <div class="card-body">
-            <div class="row mb-2 text-center">
-              <div class="col-lg-auto col-md-12"><h3 class="card-title">{{user.username}}</h3></div>
-            </div>
-            <div class="row">
-              <div class="col-auto">
-                <p class="card-text"><b>Username:</b></p>
-                <p class="card-text"><b>Email:</b></p>
-                <p class="card-text"><b>Points:</b></p>
-              </div>
-              <div class="col">
-                <p class="card-text">{{user.username}} {{user.last_name}}</p>
-                <p class="card-text">{{user.email}}</p>
-                <p class="card-text">{{user.get_user_points}}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row mt-2">
-        <div class="text-center">
-          <a class="btn btn-outline-info mx-1 my-1" href="{% url 'change_password' %}">Change Password</a>
-          <a class="btn btn-outline-primary mx-1 my-1" href="{% url 'edit_user_details' %}">Edit Profile</a>
-          <a class="btn btn-outline-danger mx-1 my-1" onclick="return confirm('Are you sure you want to delete your profile?')" href="{% url 'delete_profile' %}">Delete Profile</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div class="gfcFlexColumn gfcMediumGap">
-  <h6>Current Level: {{user.get_level}}</h6>
+  <div class="container rounded bg-primary p-5">
+    <div class="row text-center mb-2">
+      <h1 class="text-white">Profile</h1>
+    </div>
+    <div class="row gx-5 gy-2">
+      <div class="col-lg-4 p-0">
+        <div class="container text-center limit">
+            <div alt="User Icon" class="pb-2 pe-2 bg-white rounded">
+              {% include 'partials/greggor_logo.html' with height=50 greggor_type=user.profile_icon %}
+            </div>
+        
+        </div>
+      </div>
+      <div class="col">
+        <div class="row">
+          <div class="card text-bg-secondary">
+            <div class="card-body">
+              <div class="row mb-2 text-center">
+                <div class="col-lg-auto col-md-12"><h3 class="card-title">{{user.username}}</h3></div>
+              </div>
+              <div class="row">
+                <div class="col-auto">
+                  <p class="card-text"><b>Username:</b></p>
+                  <p class="card-text"><b>Email:</b></p>
+                  <p class="card-text"><b>Points:</b></p>
+                  <p class="card-text"><b>Level:</b></p>
+                </div>
+                <div class="col">
+                  <p class="card-text">{{user.username}} {{user.last_name}}</p>
+                  <p class="card-text">{{user.email}}</p>
+                  <p class="card-text">{{user.get_user_points}}</p>
+                  <p class="card-text">{{user.get_level}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="text-center">
+            <a class="btn btn-info mx-1 my-1" href="{% url 'change_password' %}">Change Password</a>
+            <a class="btn btn-success mx-1 my-1" href="{% url 'edit_user_details' %}">Edit Profile</a>
+            <a class="btn btn-danger mx-1 my-1" onclick="return confirm('Are you sure you want to delete your profile?')" href="{% url 'delete_profile' %}">Delete Profile</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div>
     {% include 'partials/levels/icon_select.html' %}
   </div>
 
   <div>
-    <h6>Levels Path</h6>
+    <h6>Level Upgrade Path</h6>
+    <p>Each level has a new prize to unlock!</p>
     {% include 'partials/levels/level_layout.html' with level=user.get_level %}
   </div>
 </div>
