@@ -60,27 +60,28 @@ class TaskForm(forms.ModelForm):
             )
         else:
             task = instance
+            databaseTask = Task.objects.filter(id = task.id)[0]
+
+            if databaseTask.completed == False and self.cleaned_data.get('completed') == True:
+                actual_work_time = task.get_actual_work_time()
+                latest_workflow = task.get_latest_task_workflow()
+                bonus_points = round(100 - abs(((task.expected_work_time - actual_work_time) / actual_work_time) * 100))
+                print(latest_workflow.get_remaining_points_for_current_cycle(), bonus_points)
+                latest_workflow.points += min(latest_workflow.get_remaining_points_for_current_cycle(), bonus_points)
+                latest_workflow.save()
+                task.bonus_points = bonus_points
+            elif databaseTask.completed == True and self.cleaned_data.get('completed') == False:
+                latest_workflow = task.get_latest_task_workflow()
+                latest_workflow.points -= task.bonus_points
+                latest_workflow.save()
+                task.bonus_points = 0
+
             task.name = self.cleaned_data.get('name')
             task.description = self.cleaned_data.get('description')
             task.category = self.cleaned_data.get('category')
             task.expected_work_time = self.cleaned_data.get('expected_work_time')
             task.completed =  self.cleaned_data.get('completed')
-
+                
             task.save()
-
-            if task.completed == False and self.cleaned_data.get('completed') == True:
-                actual_work_time = task.get_actual_work_time()
-                latest_workflow = task.get_latest_task_workflow()
-                bonus_points = 100 - abs(((task.expected_work_time - actual_work_time) / actual_work_time) * 100)
-                latest_workflow.points -= min(latest_workflow.get_remaining_points_for_current_cycle(), bonus_points)
-                latest_workflow.save()
-                task.bonus_points = bonus_points
-                task.save()
-            elif task.completed == True and self.cleaned_data.get('completed') == False:
-                latest_workflow = task.get_latest_task_workflow()
-                latest_workflow.points -= task.bonus_points
-                latest_workflow.save()
-                task.bonus_points = 0
-                task.save()
 
         return task
