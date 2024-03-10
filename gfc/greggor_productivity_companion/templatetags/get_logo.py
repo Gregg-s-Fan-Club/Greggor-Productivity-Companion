@@ -1,5 +1,5 @@
 from django import template
-from ..helpers import GreggorTypes
+from ..helpers import GreggorTypes, level_stories
 import os
 import holidays
 import datetime
@@ -30,6 +30,13 @@ def get_greggor(greggor_type: str = "") -> str:
 def get_level_path(level: int = 0) -> str:
     base_path: str = os.path.join("images", "levels", "level")
     return f"{base_path}{str(level)}.jpg"
+
+@register.filter
+def get_level_story(level: int = 0) -> str:
+    if level in level_stories.keys():
+        return level_stories[level]
+    
+    return "Come back later to see more stories"
 
 
 @register.filter
