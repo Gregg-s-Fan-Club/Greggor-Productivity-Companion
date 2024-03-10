@@ -45,8 +45,10 @@ urlpatterns = [
     path('display_work_periods/<str:task_type>', views.display_work_period_view, name='display_work_period_view'),
     path('display_tasks/<str:category_type>/<str:completed_type>', views.display_tasks_view, name ='display_tasks'),
     path('filter_task_request/', views.filter_task_request, name ='filter_task_request'),
-    # path('filter_task_type_request/', views.filter_task_type_request, name ='filter_task_type_request'),
+    path('filter_task_type_request/', views.filter_task_type_request, name ='filter_task_type_request'),
     path('view_individual_task/<int:pk>', views.view_individual_task, name ='view_individual_task'),
+    path('view_individual_work_period/<int:pk>', views.view_individual_work_period, name ='view_individual_work_period'),
+
     # path(
     #     'filter_task_request/<str:category_type>',
     #     views.filter_task_request,
