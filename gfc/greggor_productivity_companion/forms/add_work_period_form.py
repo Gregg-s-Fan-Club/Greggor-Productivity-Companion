@@ -65,9 +65,9 @@ class WorkPeriodForm(forms.ModelForm):
         minutes = int(difference.total_seconds() / 60)
 
         task = self.cleaned_data['task']
-        return min(self.get_total_points_for_current_cycle(), 0.5 * minutes)
+        return min(self.get_remaining_points_for_current_cycle(), 0.5 * minutes)
     
-    def get_total_points_for_current_cycle(self):
+    def get_remaining_points_for_current_cycle(self):
         date = self.cleaned_data['date']
         start_date = date - timedelta(days=date.today().weekday())
         end_date = start_date +  timedelta(days=7)
