@@ -127,3 +127,20 @@ def view_individual_task(request: HttpRequest, pk) -> HttpResponse:
         
         return render(request, "partials/view_individual_task.html",
                   {'task': task})
+
+def toggle_complete(request: HttpRequest, pk):
+    try:
+        task = Task.objects.get(id=pk)
+        user: User = request.user
+        if (task.user != user):
+            return redirect('dashboard')
+    except ObjectDoesNotExist:
+        messages.add_message(
+            request,
+            messages.ERROR,
+            "This task cannot be accessed.")
+        return redirect('dashboard')
+    else:
+        task.completed = not task.completed 
+        task.save()
+        return redirect('display_tasks')

@@ -8,11 +8,12 @@
 {% block content %}
 <div class="col-12">
     <div class="card h-100">
-        <div class="card-header bg-dark">
+        <div class="card-header bg-primary">
             <div class="gfcFlexRow">
-                <h4 class="card-title text-white"> Work Period for {{ work_period.task.name }}</h5>
+                <h4 class="card-title text-white"> Work Period for {{ work_period.task.name }}<br><br></h5>
             </div>
         </div>
+        
         <div class="card-body gfcFlexColumn gfcSmallGap">
             <h6 class="card-subtitle text-muted col-12"> Date: {{ work_period.date }}</h6>
             <div class="gfcFlexRow gfcSmallGap">
@@ -25,10 +26,14 @@
             </div>
             <h6 class="card-subtitle text-muted col-12"> Points: {{ work_period.points }}</h6>
 
-            <div class="gfcFlexRow gfcSmallGap">
-                <a href="{% url 'edit_work_periods' pk=work_period.id%}" class="btn btn-sm btn-outline-primary justify-content-center">Edit</a>
-                <a href="{% url 'delete_work_period' pk=work_period.id%}" class="btn btn-sm btn-outline-primary justify-content-center">Delete</a>
-            </div>
+            <div class="row mt-2">
+                <div class="text-center">
+                    {% if not work_period.task.completed%}
+                        <a class="btn btn-outline-info mx-1 my-1" href="{% url 'edit_work_periods' pk=work_period.id%}">Edit</a>
+                    {% endif %}
+                    <a class="btn btn-outline-info mx-1 my-1" href="{% url 'delete_work_period' pk=work_period.id%}">Delete</a>
+                </div>
+            </div>    
         </div>
     </div>
 </div>

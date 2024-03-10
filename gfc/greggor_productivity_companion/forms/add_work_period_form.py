@@ -12,8 +12,10 @@ class WorkPeriodForm(forms.ModelForm):
         self.user = user
         # self.instance = kwargs.get("instance")
 
-        self.fields['task'].queryset = Task.objects.filter(user = user)
+        self.fields['task'].queryset = Task.objects.filter(user = user, completed=False)
         self.fields['task'].label_from_instance: str = self.label_from_instance
+
+
 
     def label_from_instance(self, obj) -> str:
         """Return objects name"""

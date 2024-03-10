@@ -45,7 +45,7 @@ class Task(models.Model):
     def get_actual_work_time(self):
         work_periods = self.get_task_workflows()
         if len(work_periods) == 0:
-             return "0:00:00"
+             return "00:00:00"
         
         work_time = timedelta()
         for work_period in work_periods:
