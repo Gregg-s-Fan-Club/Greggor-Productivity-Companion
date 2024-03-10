@@ -2,7 +2,7 @@ from django import forms
 from greggor_productivity_companion.models import WorkPeriod, Task
 from typing import Any
 from django.contrib.admin.widgets import AdminDateWidget
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 
 class WorkPeriodForm(forms.ModelForm):
     """form to add a new work period"""
@@ -10,7 +10,7 @@ class WorkPeriodForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         super(WorkPeriodForm,self).__init__(*args, **kwargs)
         self.user = user
-        self.instance = kwargs.get("instance")
+        # self.instance = kwargs.get("instance")
 
         self.fields['task'].queryset = Task.objects.filter(user = user)
         self.fields['task'].label_from_instance: str = self.label_from_instance
@@ -65,11 +65,28 @@ class WorkPeriodForm(forms.ModelForm):
         minutes = int(difference.total_seconds() / 60)
 
         task = self.cleaned_data['task']
-        self.get_total_points_for_current_cycle()
-        return min(task.category.max_points_per_cycle, 0.5 * minutes)
+        print(self.get_total_points_for_current_cycle())
+        return min(self.get_total_points_for_current_cycle(), 0.5 * minutes)
     
     def get_total_points_for_current_cycle(self):
-        print(date.today().weekday())
+        date = self.cleaned_data['date']
+        start_date = date - timedelta(days=date.today().weekday())
+        end_date = start_date +  timedelta(days=7)
+        points = 0
+        task = self.cleaned_data['task']
+        workperiods = WorkPeriod.objects.filter(task=task)
+        for workperiod in workperiods:
+            if workperiod.date >= start_date and workperiod.date <= end_date:
+                points = points + workperiod.points
+        
+        max_points = task.category.max_points_per_cycle
+
+        if points > max_points:
+            return 0
+        else:
+            return max_points - points
+        
+
 
     def save(self, instance=None):
         super().save(commit=False)

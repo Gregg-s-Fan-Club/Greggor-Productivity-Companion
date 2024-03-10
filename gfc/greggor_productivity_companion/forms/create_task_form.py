@@ -9,7 +9,7 @@ class TaskForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         super(TaskForm, self).__init__(*args, **kwargs)
         self.user = user
-        self.instance = kwargs.get("instance")
+        # self.instance = kwargs.get("instance")
         
         self.fields['category'].queryset = Category.objects.all()
         self.fields['category'].label_from_instance: str = self.label_from_instance
