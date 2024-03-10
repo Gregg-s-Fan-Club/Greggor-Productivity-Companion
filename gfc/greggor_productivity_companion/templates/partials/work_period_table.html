@@ -40,7 +40,14 @@
             {% endfor %}
           </select>
         </div>
-
+        <div>
+          <label for="start">Start date:</label>
+          <input type="date" id="start" name="start_date" value="2016-01-01" min="2016-01-01" max="2140-12-31" />
+        </div>
+        <div>
+          <label for="end">End date:</label>
+          <input type="date" id="end" name="end_date" value="2140-07-22" min="2016-01-01" max="2140-12-31" />
+        </div>
         </br>
 
         <div onclick="submitFilterTaskForm()" class="btn btn-primary">Filter</div>

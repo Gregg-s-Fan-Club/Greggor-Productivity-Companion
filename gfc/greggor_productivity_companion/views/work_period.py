@@ -9,24 +9,27 @@ from django.core.paginator import Page
 from django.contrib import messages
 from itertools import chain
 from django.core.exceptions import ObjectDoesNotExist
+from datetime import datetime, date
 
 @login_required
-def display_work_period_view(request: HttpRequest, task_type="ALL") -> HttpRequest:
+def display_work_period_view(request: HttpRequest, task_type="ALL", start_date = "2016-01-01", end_date="2140-07-22") -> HttpRequest:
     if task_type != "ALL":
         tasks = Task.objects.filter(user = request.user, name=task_type)
     else:
         tasks = Task.objects.filter(user = request.user)
     allTasks  = Task.objects.filter(user = request.user)
-    work_periods = WorkPeriod.objects.filter(task = tasks[0])
+    startObj = datetime.strptime(start_date, "%Y-%m-%d")
+    endObj = datetime.strptime(end_date, "%Y-%m-%d")
+    work_periods = WorkPeriod.objects.filter(task = tasks[0], date__range=(startObj.date(), endObj.date()))
     for task in tasks:
-       work_periods = WorkPeriod.objects.filter(task = task) | work_periods
+       work_periods = WorkPeriod.objects.filter(task = task, date__range=(startObj.date(), endObj.date())) | work_periods
     work_periods = paginate(request.GET.get('page', 1), work_periods)
     return render(request, "pages/display_work_periods.html", {'work_periods': work_periods, 'tasks': allTasks})
 
 @login_required
 def filter_task_type_request(request) -> HttpResponse:
     """Filters transactions and sets redirect to input page with filter"""
-    return redirect("display_work_period_view", request.POST['task'])
+    return redirect("display_work_period_view", request.POST['task'], request.POST['start_date'], request.POST['end_date'])
 
 def create_work_period(request: HttpRequest) -> HttpResponse:
 
