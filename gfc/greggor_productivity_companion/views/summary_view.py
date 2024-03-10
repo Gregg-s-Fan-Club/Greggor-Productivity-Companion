@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from typing import Any
 from django.db.models import QuerySet
 from datetime import datetime, timedelta
+from ..helpers import category_bar_chart_data
 
 @login_required
 def summary_view(request: HttpRequest) -> HttpResponse:
@@ -44,14 +45,12 @@ def summary_view(request: HttpRequest) -> HttpResponse:
     total_hours_week = total_hours(workflows_week)
     total_hours_day = total_hours(workflows_day)
 
-    
-
-
     context: dict[str, Any] = {
         'tasks': recent_tasks, 
         'hours_spent_month': total_hours_month,
         'hours_spent_week': total_hours_week,
-        'hours_spent_day' : total_hours_day
+        'hours_spent_day' : total_hours_day,
+        'user_workflow_data': category_bar_chart_data(request.user)
     }
 
 
