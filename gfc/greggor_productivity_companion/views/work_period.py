@@ -24,7 +24,7 @@ def display_work_period_view(request: HttpRequest, task_type="ALL", start_date =
     for task in tasks:
        work_periods = WorkPeriod.objects.filter(task = task, date__range=(startObj.date(), endObj.date())) | work_periods
     work_periods = paginate(request.GET.get('page', 1), work_periods)
-    return render(request, "pages/display_work_periods.html", {'work_periods': work_periods, 'tasks': allTasks})
+    return render(request, "pages/display_work_periods.html", {'work_periods': work_periods, 'tasks': allTasks,'task_type': task_type })
 
 @login_required
 def filter_task_type_request(request) -> HttpResponse:
@@ -49,8 +49,13 @@ def edit_work_periods(request: HttpRequest, pk):
 
     try:
         work_period = WorkPeriod.objects.get(id=pk)
+        task = work_period.task
         user = request.user
-        if(work_period.task.user != user):
+        if(work_period.task.user != user) or task.completed == True:
+            messages.add_message(
+            request,
+            messages.ERROR,
+            "This work period cannot be edited")
             return redirect('dashboard')
     except ObjectDoesNotExist:
         messages.add_message(
@@ -70,7 +75,8 @@ def edit_work_periods(request: HttpRequest, pk):
                 "Your work period has been successfully updated")
             return redirect('view_individual_work_period',pk)
     else:
-        form = WorkPeriodForm(user,instance=work_period)
+        print(work_period.task)
+        form = WorkPeriodForm(user, instance=work_period)
     return render(request, "pages/add_work_period.html",
                   {'form': form, 'edit': True,'pk': pk})
 

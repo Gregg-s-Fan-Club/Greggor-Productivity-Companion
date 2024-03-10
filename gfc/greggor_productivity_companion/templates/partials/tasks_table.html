@@ -88,6 +88,7 @@
               <th scope="col" class="col-auto">Category</th>
               <th scope="col" class="col-auto">Completed?</th>
               <th scope="col" class="col-auto">View More</th>
+              <th scope="col" class="col-auto">Toggle complete</th>
         </thead>
         {% for task in tasks %}
           <tr class="text-center">
@@ -96,6 +97,7 @@
             <td>{{task.category.name}}</td>
             <td>{% include 'partials/boolean.html' with bool=task.completed size_tag="h5" %}</td>
             <td> <a href="{% url 'view_individual_task' pk=task.id%}" class="btn btn-sm btn-outline-primary justify-content-center">View Info</a</td>
+            <td> <a href="{% url 'toggle_complete' pk=task.id%}" class="btn btn-sm btn-outline-primary justify-content-center">Toggle Complete</a</td>
           </tr>
         {% endfor %}
       </table>

@@ -13,6 +13,8 @@ class TaskForm(forms.ModelForm):
         
         self.fields['category'].queryset = Category.objects.all()
         self.fields['category'].label_from_instance: str = self.label_from_instance
+
+   
     
     def label_from_instance(self, obj) -> str:
         """Return objects name"""
