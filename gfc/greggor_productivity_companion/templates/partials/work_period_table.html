@@ -65,6 +65,8 @@
               <th scope="col" class="col-auto">End Time</th>
               <th scope="col" class="col-auto">Points</th>
               <th scope="col" class="col-auto">Task</th>
+              <th scope="col" class="col-auto">Edit</th>
+              <th scope="col" class="col-auto">Delete</th>
         </thead>
         {% for work_period in work_periods %}
           <tr class="text-center">
@@ -73,6 +75,8 @@
             <td>{{work_period.end_time}}</td>
             <td>{{work_period.points}}</td>
             <td>{{work_period.task.name}}</td>
+            <td><a class="btn btn-outline-info mx-1 my-1" href="{% url 'edit_work_periods' pk=work_period.id %}">Edit</a></td>
+            <td><a class="btn btn-outline-info mx-1 my-1" href="{% url 'delete_work_period' pk=work_period.id %}">Delete</a></td>
           </tr>
         {% endfor %}
       </table>
