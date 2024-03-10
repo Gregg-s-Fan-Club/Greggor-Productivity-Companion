@@ -1,0 +1,4 @@
+{% load static %}
+{% load get_logo %}
+
+<img src="{% static level|get_level_path %}" class="{{class}}" alt="Level Map" height="{{height}}" width="{{width}}" style="{{style}}"/>

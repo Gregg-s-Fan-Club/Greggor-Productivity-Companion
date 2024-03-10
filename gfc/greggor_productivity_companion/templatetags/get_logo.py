@@ -26,6 +26,11 @@ def get_greggor(greggor_type: str = "") -> str:
 
     return f"{base_path}{GreggorTypes.NORMAL}.png"
 
+@register.filter
+def get_level_path(level: int = 0) -> str:
+    base_path: str = os.path.join("images", "levels", "level")
+    return f"{base_path}{str(level)}.jpg"
+
 
 @register.filter
 def get_greggor_type_from_completeness(completeness: float) -> str:
