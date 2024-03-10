@@ -137,39 +137,39 @@ class Command(BaseCommand):
             self.create_tasks()
         task = Task.objects.filter(name = "Football")[0]
 
+        if not WorkPeriod.objects.filter(date = datetime(2024, 3, 8), start_time="12:12:12", end_time ="14:14:14", task=task):
+            WorkPeriod.objects.create(
+            date= datetime(2024, 3, 8),
+            start_time = "12:12:12",
+            end_time ="14:14:14",
+            points = 230,
+            task=task
         
-        WorkPeriod.objects.create(
-        date= datetime(2024, 3, 8),
-        start_time = "12:12:12",
-        end_time ="14:14:14",
-        points = 230,
-        task=task
-    
-        )
+            )
         
         task = Task.objects.filter(name = "Go to doctor")
         if not task:
             self.create_tasks()
         task = Task.objects.filter(name = "Go to doctor")[0]
 
+        if not WorkPeriod.objects.filter(date = datetime(2024, 3, 8), start_time="12:12:12", end_time ="13:13:13", task=task):
+            WorkPeriod.objects.create(
+            date= datetime(2024, 3, 8),
+            start_time = "12:12:12",
+            end_time ="13:13:13",
+            points = 290,
+            task=task
+            )
+        if not WorkPeriod.objects.filter(date = datetime(2024, 3, 1), start_time="12:12:12", end_time ="14:14:14", task=task):
+            WorkPeriod.objects.create(
+            date= datetime(2024, 3, 1),
+            start_time = "12:12:12",
+            end_time ="14:14:14",
+            points = 30,
+            task=task
         
-        WorkPeriod.objects.create(
-        date= datetime(2024, 3, 8),
-        start_time = "12:12:12",
-        end_time ="13:13:13",
-        points = 290,
-        task=task
-        )
-
-        WorkPeriod.objects.create(
-        date= datetime(2024, 3, 1),
-        start_time = "12:12:12",
-        end_time ="14:14:14",
-        points = 30,
-        task=task
-    
-        )
-    
+            )
+        
 
 
    
