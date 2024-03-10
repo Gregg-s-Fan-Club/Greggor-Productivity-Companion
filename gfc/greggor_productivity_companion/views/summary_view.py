@@ -46,6 +46,8 @@ def summary_view(request: HttpRequest) -> HttpResponse:
 
     
 
+    
+
 
     context: dict[str, Any] = {
         'tasks': recent_tasks, 
