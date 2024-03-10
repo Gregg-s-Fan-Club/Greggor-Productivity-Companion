@@ -16,12 +16,12 @@ def display_work_period_view(request: HttpRequest, task_type="ALL") -> HttpReque
         tasks = Task.objects.filter(user = request.user, name=task_type)
     else:
         tasks = Task.objects.filter(user = request.user)
-
+    allTasks  = Task.objects.filter(user = request.user)
     work_periods = WorkPeriod.objects.filter(task = tasks[0])
     for task in tasks:
        work_periods = WorkPeriod.objects.filter(task = task) | work_periods
     work_periods = paginate(request.GET.get('page', 1), work_periods)
-    return render(request, "pages/display_work_periods.html", {'work_periods': work_periods, 'tasks': tasks})
+    return render(request, "pages/display_work_periods.html", {'work_periods': work_periods, 'tasks': allTasks})
 
 @login_required
 def filter_task_type_request(request) -> HttpResponse:
