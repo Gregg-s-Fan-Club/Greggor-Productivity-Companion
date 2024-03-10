@@ -6,16 +6,31 @@
 <!-- Content -->
 {% block content %}
   <div class="container p-0">
+    <h1 align="center">Recent Tasks</h1>
+
+
+    <div class="d-flex flex-row" align="center">
     {% for task in tasks %}
-        <p><b>Name:</b> {{task.name}}</p>
-        <p><b>Description:</b> {{task.description}}</p>
-        <p><b>Expected Work Time:</b> {{task.expected_work_time}}</p>
-        <p><b>Actual Work Time:</b> {{task.actual_work_time}}</p>
-        <p><b>Category:</b> {{task.category}}</p>
-        <p><b>Completed:</b> {{task.completed}}</p>
+      <div class="col-sm-4 py-4">
+        <div class="card" style="width: 18rem;">
+          <div class="card-header">
+            {{task.name}}
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><b>Description</b> <br> {{task.description}}</li>
+            <li class="list-group-item"><b>Expected Work Time</b> <br> {{task.expected_work_time}}</li>
+            <li class="list-group-item"><b>Actual Work Time</b> <br> {{task.actual_work_time}}</li>
+            <li class="list-group-item"><b>Category</b> <br> {{task.category.name}}</li>
+            <li class="list-group-item"><b>Completed</b> <br> {{task.completed}}</li>
+          </ul>
+        </div>
+      </div>
+      <br>
     {% endfor %}
+    </div>  
 
-
+    <hr class="hr" />
+    <h1 align="center">Statistics</h1><br>
     <div class="container" align="center">
       <div class="row">
         <div class="col-sm">
