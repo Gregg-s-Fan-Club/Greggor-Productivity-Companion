@@ -32,11 +32,11 @@ def get_level_path(level: int = 0) -> str:
     return f"{base_path}{str(level)}.jpg"
 
 @register.filter
-def get_level_story(level: int = 0) -> str:
+def get_level_story(level: int = 0) -> [str]:
     if level in level_stories.keys():
-        return level_stories[level]
+        return [level_stories[i] for i in range(0, level + 1)]
     
-    return "Come back later to see more stories"
+    return ["Come back later to see more stories"]
 
 
 @register.filter
