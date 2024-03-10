@@ -14,14 +14,73 @@
         <p><b>Category:</b> {{task.category}}</p>
         <p><b>Completed:</b> {{task.completed}}</p>
     {% endfor %}
-    <p><b>Total hours spent on tasks in the last 30 days:</b> {{ hours_spent_month }}</p>
-    <p><b>Total hours spent on tasks in the last 7 days:</b> {{ hours_spent_week }}</p>
-    <p><b>Total hours spent on tasks in the last day:</b> {{ hours_spent_day }}</p>
-    <p><b>Day with the most amount of hours worked in the last 30 days:</b> {{ highest_day_hours }}</p>
-    <p><b>Day with the least amount of hours worked in the last 30 days:</b> {{ lowest_day_hours }}</p>
-    <p><b>Day with the most amount of points in the last 30 days:</b> {{ highest_day_points }}</p>
-    <p><b>Day with the least amount of points in the last 30 days:</b> {{ lowest_day_points }}</p>
 
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm">
+          <div class="card" style="width: 18rem; height: 10rem;">
+            <div class="card-body">
+              <h4 class="card-title mb-4" style="height: 5rem;">Total hours spent on tasks in the last 30 days</h4>
+              <h4 class="card-subtitle mb-4 text-muted">{{ hours_spent_month }}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="card" style="width: 18rem; height: 10rem;">
+            <div class="card-body">
+              <h4 class="card-title mb-4" style="height: 5rem;">Total hours spent on tasks in the last 7 days</h4>
+              <h4 class="card-subtitle mb-4 text-muted">{{ hours_spent_week }}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="card" style="width: 18rem; height: 10rem;">
+            <div class="card-body">
+              <h4 class="card-title mb-4" style="height: 5rem;">Total hours spent on tasks in the last day</h4>
+              <h4 class="card-subtitle mb-4 text-muted">{{ hours_spent_day }}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br>
+      <div class="row">
+        <div class="col-sm">
+          <div class="card" style="width: 18rem; height: 13rem;">
+            <div class="card-body">
+              <h4 class="card-title mb-5" style="height: 5rem;">Day with the most amount of hours worked in the last 30 days</h4>
+              <h4 class="card-subtitle mb-4 text-muted">{{ highest_day_hours }}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="card" style="width: 18rem; height: 13rem;">
+            <div class="card-body">
+              <h4 class="card-title mb-5" style="height: 5rem;">Day with the least amount of hours worked in the last 30 days</h4>
+              <h4 class="card-subtitle mb-4 text-muted">{{ lowest_day_hours }}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="card" style="width: 18rem; height: 13rem;">
+            <div class="card-body">
+              <h4 class="card-title mb-5" style="height: 5rem;">Day with the most amount of points in the last 30 days</h4>
+              <h4 class="card-subtitle mb-4 text-muted">{{ highest_day_points }}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="card" style="width: 18rem; height: 13rem;">
+            <div class="card-body">
+              <h4 class="card-title mb-5" style="height: 5rem;">Day with the least amount of points in the last 30 days</h4>
+              <h4 class="card-subtitle mb-4 text-muted">{{ lowest_day_points }}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
     {% include 'partials/graphs/categoryHoursSpentBarChart.html' with data=user_workflow_data %}
   </div>
 {% endblock %}
