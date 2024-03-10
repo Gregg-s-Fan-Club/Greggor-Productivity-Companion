@@ -1,0 +1,35 @@
+{% extends "page.html" %}
+{% load static %}
+
+<!-- Title -->
+{% block title %}Work Period{% endblock %}
+
+<!-- Content -->
+{% block content %}
+<div class="col-12">
+    <div class="card h-100">
+        <div class="card-header bg-dark">
+            <div class="gfcFlexRow">
+                <h4 class="card-title text-white"> Work Period for {{ work_period.task.name }}</h5>
+            </div>
+        </div>
+        <div class="card-body gfcFlexColumn gfcSmallGap">
+            <h6 class="card-subtitle text-muted col-12"> Date: {{ work_period.date }}</h6>
+            <div class="gfcFlexRow gfcSmallGap">
+                <h6 class="text-muted"> Start Time:</h6>
+                <h4 class="text-white bg-primary p-2 rounded">{{ work_period.start_time }}</h4>
+            </div>
+            <div class="gfcFlexRow gfcSmallGap">
+                <h6 class="text-muted"> End Time:</h6>
+                <h4 class="text-white bg-primary p-2 rounded">{{ work_period.end_time }}</h4>
+            </div>
+            <h6 class="card-subtitle text-muted col-12"> Points: {{ work_period.points }}</h6>
+
+            <div class="gfcFlexRow gfcSmallGap">
+                <a href="{% url 'edit_work_periods' pk=work_period.id%}" class="btn btn-sm btn-outline-primary justify-content-center">Edit</a>
+                <a href="{% url 'delete_work_period' pk=work_period.id%}" class="btn btn-sm btn-outline-primary justify-content-center">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

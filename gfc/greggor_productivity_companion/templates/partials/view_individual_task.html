@@ -2,7 +2,7 @@
 {% load static %}
 
 <!-- Title -->
-{% block title %}Task task.name{% endblock %}
+{% block title %}Task {{task.name}}{% endblock %}
 
 <!-- Content -->
 {% block content %}
@@ -29,8 +29,14 @@
             </div>
             <div class="gfcFlexRow gfcSmallGap">
                 <h6 class="text-muted"> Time Acrued:</h6>
-                <h4 class="text-white bg-primary p-2 rounded">{{ task.actual_work_time }}</h4>
+                <h4 class="text-white bg-primary p-2 rounded">{{ task.get_actual_work_time }}</h4>
             </div>
+            <div class="row mt-2">
+                <div class="text-center">
+                    <a class="btn btn-outline-info mx-1 my-1" href="{% url 'edit_tasks' pk=task.id %}">Edit</a>
+                    <a class="btn btn-outline-info mx-1 my-1" href="{% url 'delete_tasks' pk=task.id %}">Delete</a>
+                </div>
+            </div>    
         </div>
     </div>
 </div>

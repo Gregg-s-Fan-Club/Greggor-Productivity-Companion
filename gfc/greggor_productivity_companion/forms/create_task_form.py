@@ -9,7 +9,7 @@ class TaskForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         super(TaskForm, self).__init__(*args, **kwargs)
         self.user = user
-
+        # self.instance = kwargs.get("instance")
         
         self.fields['category'].queryset = Category.objects.all()
         self.fields['category'].label_from_instance: str = self.label_from_instance
@@ -23,19 +23,25 @@ class TaskForm(forms.ModelForm):
         fields = ['name', 'description', 'expected_work_time','completed', 'category']
         widgets = {'description': forms.Textarea(),'expected_work_time': forms.TextInput(attrs={'placeholder': 'hh:mm:ss', 'class': 'form-control'})}
         
-    # categories = ()
-    # for category in Category.objects.all():
-    #     categories = ((category,category),) + categories
-    #     print(categories)
 
-    # category= forms.ChoiceField(choices=categories) 
 
     def clean(self):
         super().clean()
-        cleaned_data = self.cleaned_data
-        if Task.objects.filter(user=self.user,name=cleaned_data['name'],         
-                                   category=cleaned_data['category']).exists():
-            self.add_error('name', 'Task with this name and category exists')
+        check_unique_together: models.QuerySet[AbstractTarget] = Task.objects.filter(
+            user=self.user,name= self.cleaned_data.get('name'),         
+                                    category= self.cleaned_data.get('category'))
+
+        if self.instance is None:
+            if len(check_unique_together) > 0:
+                self.add_error('name', 'Task with this name and category exists')
+                self.add_error('category', 'Task with this name and category exists')
+        else:
+            if any(check_unique_target_object !=
+                   self.instance for check_unique_target_object in check_unique_together):
+                self.add_error('name', 'Task with this name and category exists')
+                self.add_error('category', 'Task with this name and category exists')
+
+
 
         
 
@@ -53,10 +59,6 @@ class TaskForm(forms.ModelForm):
                 completed =  self.cleaned_data.get('completed')
             )
         else:
-            if task.completed == False and self.cleaned_data.get('completed') == True:
-                pass
-                # add extra points
-                # remove extra points
             task = instance
             task.name = self.cleaned_data.get('name')
             task.description = self.cleaned_data.get('description')
@@ -65,5 +67,20 @@ class TaskForm(forms.ModelForm):
             task.completed =  self.cleaned_data.get('completed')
 
             task.save()
+
+            if task.completed == False and self.cleaned_data.get('completed') == True:
+                actual_work_time = task.get_actual_work_time()
+                latest_workflow = task.get_latest_task_workflow()
+                bonus_points = 100 - abs(((task.expected_work_time - actual_work_time) / actual_work_time) * 100)
+                latest_workflow.points -= min(latest_workflow.get_remaining_points_for_current_cycle(), bonus_points)
+                latest_workflow.save()
+                task.bonus_points = bonus_points
+                task.save()
+            elif task.completed == True and self.cleaned_data.get('completed') == False:
+                latest_workflow = task.get_latest_task_workflow()
+                latest_workflow.points -= task.bonus_points
+                latest_workflow.save()
+                task.bonus_points = 0
+                task.save()
 
         return task

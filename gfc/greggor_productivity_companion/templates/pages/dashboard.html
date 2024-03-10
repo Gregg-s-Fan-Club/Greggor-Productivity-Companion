@@ -5,15 +5,13 @@
 
 <!-- Content -->
 {% block content %}
-  <div class="container p-0">
-    <div class="row g-3 justify-content-center">
-      <div class="col-lg-5 col-12">
-        <div class="row g-3">
-          <div class="col-12">
-            {% include 'partials/dashboard/welcome.html'%}
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="gfcFlexRow gfcMediumGap gfcFlexContentCenter">
+    {% include 'partials/page_card.html' with page_name="Tasks" link="display_tasks" django_url=True %}
+    {% include 'partials/page_card.html' with page_name="Work Sessions" link="display_work_period_view" django_url=True %}
+    {% include 'partials/page_card.html' with page_name="Summary" link="summary" django_url=True %}
+    {% include 'partials/page_card.html' with page_name="Profile" link="profile" django_url=True %}
+    {% include 'partials/page_card.html' with page_name="Merch Store" link="https://www.etsy.com/uk/shop/GreggorFanClub" django_url=False %}
+    {% include 'partials/page_card.html' with page_name="Logout" link="log_out" django_url=True %}
+    
   </div>
 {% endblock %}

@@ -1,6 +1,6 @@
 from django.db import models
 from greggor_productivity_companion.models import User, Category
-from greggor_productivity_companion import models as gfc
+from greggor_productivity_companion import models as gpcmodels
 from datetime import datetime, timedelta
 
 
@@ -26,7 +26,10 @@ class Task(models.Model):
 
 
     def get_task_workflows(self):
-        return gfc.WorkPeriod.objects.filter(task = self)
+        return gpcmodels.WorkPeriod.objects.filter(task = self)
+    
+    def get_latest_task_workflow(self):
+        return self.get_task_workflows().order_by('-date', '-end_time', '-start_time')[0]
     
     def get_task_workflows_over_period(self, amount):
         time = datetime.today() - timedelta(days=amount)
@@ -39,7 +42,7 @@ class Task(models.Model):
             points += period.points
         return points
 
-    def actual_work_time(self):
+    def get_actual_work_time(self):
         work_periods = self.get_task_workflows()
         if len(work_periods) == 0:
              return "0:00:00"
