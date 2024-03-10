@@ -121,7 +121,7 @@ def view_individual_task(request: HttpRequest, pk) -> HttpResponse:
         messages.add_message(
             request,
             messages.ERROR,
-            "This task cannot be deleted.")
+            "This task cannot be accessed.")
         return redirect('dashboard')
     else:
         

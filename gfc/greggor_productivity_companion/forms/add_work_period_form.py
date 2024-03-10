@@ -65,7 +65,6 @@ class WorkPeriodForm(forms.ModelForm):
         minutes = int(difference.total_seconds() / 60)
 
         task = self.cleaned_data['task']
-        print(self.get_total_points_for_current_cycle())
         return min(self.get_total_points_for_current_cycle(), 0.5 * minutes)
     
     def get_total_points_for_current_cycle(self):

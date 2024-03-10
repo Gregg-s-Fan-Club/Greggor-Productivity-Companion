@@ -65,7 +65,7 @@ def edit_work_periods(request: HttpRequest, pk):
                 request,
                 messages.SUCCESS,
                 "Your work period has been successfully updated")
-            return redirect('dashboard',)
+            return redirect('view_individual_work_period',pk)
     else:
         form = WorkPeriodForm(user,instance=work_period)
     return render(request, "pages/add_work_period.html",
@@ -91,3 +91,21 @@ def delete_work_period(request: HttpRequest, pk) -> HttpResponse:
             messages.WARNING,
             "The work period has been deleted")
         return redirect('dashboard')
+
+def view_individual_work_period(request: HttpRequest, pk) -> HttpResponse:
+    """View to view a work period"""
+    try:
+        work_period = WorkPeriod.objects.get(id=pk)
+        user: User = request.user
+        if (work_period.task.user != user):
+            return redirect('dashboard')
+    except ObjectDoesNotExist:
+        messages.add_message(
+            request,
+            messages.ERROR,
+            "This work period cannot be accessed.")
+        return redirect('dashboard')
+    else:
+        
+        return render(request, "partials/view_individual_work_period.html",
+                  {'work_period': work_period})
