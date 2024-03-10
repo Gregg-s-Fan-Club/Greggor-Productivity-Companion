@@ -15,6 +15,12 @@
         <p><b>Completed:</b> {{task.completed}}</p>
     {% endfor %}
     <p><b>Total hours spent on tasks in the last 30 days:</b> {{ hours_spent_month }}</p>
+    <p><b>Total hours spent on tasks in the last 7 days:</b> {{ hours_spent_week }}</p>
+    <p><b>Total hours spent on tasks in the last day:</b> {{ hours_spent_day }}</p>
+    <p><b>Day with the most amount of hours worked in the last 30 days:</b> {{ highest_day_hours }}</p>
+    <p><b>Day with the least amount of hours worked in the last 30 days:</b> {{ lowest_day_hours }}</p>
+    <p><b>Day with the most amount of points in the last 30 days:</b> {{ highest_day_points }}</p>
+    <p><b>Day with the least amount of points in the last 30 days:</b> {{ lowest_day_points }}</p>
 
     {% include 'partials/graphs/categoryHoursSpentBarChart.html' with data=user_workflow_data %}
   </div>
