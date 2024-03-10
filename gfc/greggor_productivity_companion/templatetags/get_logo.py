@@ -10,7 +10,6 @@ register: template.Library = template.Library()
 @register.filter
 def get_greggor(greggor_type: str = "") -> str:
     """Returns the filepath for the wanted greggor logo"""
-
     base_path: str = os.path.join("images", "icons", "greggor-")
     greggor_type: str = greggor_type.lower()
 
