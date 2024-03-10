@@ -33,7 +33,7 @@ class Task(models.Model):
     
     def get_task_workflows_over_period(self, amount):
         time = datetime.today() - timedelta(days=amount)
-        return gfc.WorkPeriod.objects.filter(date__gte=time, task = self)
+        return gpcmodels.WorkPeriod.objects.filter(date__gte=time, task = self)
     
     def get_task_points(self):
         work_periods = self.get_task_workflows()

@@ -1,0 +1,97 @@
+<script src="https://d3js.org/d3.v4.js"></script>
+
+<div class="gfcFlexColumn gfcGraph">
+    <div class="gfcFlexRow">
+        <div>
+            <h5 class="text-black">Hours Spent Per Category</h5>
+            <h6 class="text-black" id="selectBarChartCategoryDaysUpdater"></h6>
+        </div>
+        <div class="gfcFlexLast">
+            <select id="selectBarChartCategoryDays">
+                <option value="30">Last 30 Days</option>
+                <option value="7">Last 7 Days</option>
+            </select>
+
+            <div onclick="updateChart(document.getElementById('selectBarChartCategoryDays').value)" class="btn btn-primary">Filter</div>
+        </div>
+    </div>
+    <svg height="300" id="categoryBarChart"></svg>
+</div>
+
+<script>
+    var data = {{data|safe}};
+    var svg = d3.select("svg");
+
+    function drawChart(svg, dataset) { 
+        //Width and height
+        barChart = document.getElementById("categoryBarChart")
+        var w = barChart.width.baseVal.value;
+        var h = barChart.height.baseVal.value
+        var barPadding = 20 / dataset.length; 
+        
+        var maxValue = 0
+        var i = 0
+        while (i < dataset.length) {
+            if (dataset[i][1] > maxValue) maxValue = dataset[i][1];
+            i++
+        }
+        var hScale = 200/maxValue;
+
+        // chart
+        svg = d3.select('#categoryBarChart')
+        svg.selectAll("rect")
+            .data(dataset)
+            .enter()
+            .append("rect")
+            .attr("x", 0)
+            .attr("y", 0)
+            .attr("x", function(d, i) {
+                return i * (w / dataset.length); // stretch data to width
+            })
+            .attr("width", w / dataset.length - barPadding) // bar fill area
+            .attr("height", function(d) {
+                return d[1] * hScale; // height with scale
+            })
+            .attr("y", function(d) {
+                return h - (d[1] * hScale);  //Flip bars right way up with scale
+            })
+            // // .attr("fill", "teal") // solid colour
+            .attr("fill", function(d) {
+                return "rgb(0," + (d[1] * 1.3) + ", " + (d[1] * 13) + ")"; // colour function
+            })
+
+        // text
+        svg.selectAll("text")
+            .data(dataset)
+            .enter()
+            .append("text")
+            .text(function(d) {
+                return d[0] + " : " + d[1];
+            })
+            .attr("y", function(d) {
+                    return h - (d[1] * hScale) + 15; // text in block height
+            })
+            .attr("x", function(d, i) {
+                return i * (w / dataset.length) + (w / dataset.length - barPadding) / 2; // text on correct block width centered
+            })
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "15px")
+            .attr("fill", "white")
+            .attr("text-anchor", "middle")
+    }
+
+
+    function clearChart(svg) {
+        svg.selectAll("rect").remove();
+        svg.selectAll("text").remove();
+    }
+
+    function updateChart(days) {
+        clearChart(svg);
+        document.getElementById("selectBarChartCategoryDaysUpdater").innerHTML =  "Last " + days + " Days";
+        drawChart(svg, data[parseInt(days)])
+    }
+
+    //Create SVG element
+    updateChart(30);
+</script>

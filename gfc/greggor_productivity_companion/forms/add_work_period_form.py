@@ -57,55 +57,42 @@ class WorkPeriodForm(forms.ModelForm):
                 self.add_error('start_time', 'Task with this date, start time and end time exists')
                 self.add_error('date', 'Task with this date, start time and end time exists')
 
-
-    def calculatePoints(self):
-        end_time = self.cleaned_data['end_time']
-        start_time = self.cleaned_data['start_time']
+    def calculatePoints(self, start_time, end_time, work_period):
         difference = datetime.combine(date.today(), end_time) - datetime.combine(date.today(), start_time)
         minutes = int(difference.total_seconds() / 60)
 
-        task = self.cleaned_data['task']
-        return min(self.get_remaining_points_for_current_cycle(), 0.5 * minutes)
-    
-    def get_remaining_points_for_current_cycle(self):
-        date = self.cleaned_data['date']
-        start_date = date - timedelta(days=date.today().weekday())
-        end_date = start_date +  timedelta(days=7)
-        points = 0
-        task = self.cleaned_data['task']
-        workperiods = WorkPeriod.objects.filter(task=task)
-        for workperiod in workperiods:
-            if workperiod.date >= start_date and workperiod.date <= end_date:
-                points = points + workperiod.points
-        
-        max_points = task.category.max_points_per_cycle
-
-        if points > max_points:
-            return 0
-        else:
-            return max_points - points
+        return min(work_period.get_remaining_points_for_current_cycle(), 0.5 * minutes)
         
 
 
     def save(self, instance=None):
         super().save(commit=False)
-        self.calculatePoints()
-        if instance is None:
-            workPeriod = WorkPeriod.objects.create(
-                date=self.cleaned_data.get('date'),
-                start_time=self.cleaned_data.get('start_time'),
-                end_time=self.cleaned_data.get('end_time'),
-                points=self.calculatePoints(),
-                task = self.cleaned_data.get('task')
-            )
-        else:
-            workPeriod = instance
-            workPeriod.date = self.cleaned_data.get('date')
-            workPeriod.start_time = self.cleaned_data.get('start_time')
-            workPeriod.end_time = self.cleaned_data.get('end_time')
-            workPeriod.points = self.calculatePoints()
-            workPeriod.task = self.cleaned_data.get('task')
 
-            workPeriod.save()
+        date=self.cleaned_data.get('date')
+        start_time=self.cleaned_data.get('start_time')
+        end_time=self.cleaned_data.get('end_time')
+        task = self.cleaned_data.get('task')
+
+        if instance is None:
+            print(1353443564)
+            work_period = WorkPeriod.objects.create(
+                date = date,
+                start_time = start_time,
+                end_time = end_time,
+                points = 0,
+                task = task,
+            )
+
+            # work_period.points = self.calculatePoints(start_time[0], end_time[0], work_period)
+            # work_period.save()
+        else:
+            work_period = instance
+            work_period.date = self.cleaned_data.get('date')
+            work_period.start_time = self.cleaned_data.get('start_time')
+            work_period.end_time = self.cleaned_data.get('end_time')
+            work_period.points = self.calculatePoints(start_time, end_time, work_period)
+            work_period.task = self.cleaned_data.get('task')
+
+            work_period.save()
         
-        return workPeriod
+        return work_period

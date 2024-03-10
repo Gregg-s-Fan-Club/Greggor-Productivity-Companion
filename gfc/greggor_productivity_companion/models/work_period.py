@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.core.validators import RegexValidator
 from greggor_productivity_companion.models import Task
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 
 class WorkPeriod(models.Model):
@@ -29,7 +29,18 @@ class WorkPeriod(models.Model):
         hours_difference = minutes_difference / 60
         return hours_difference
     
-    
+    def get_remaining_points_for_current_cycle(self):
+        start_date = self.date - timedelta(days=date.today().weekday())
+        end_date = start_date +  timedelta(days=7)
+        points = 0
+        workperiods = WorkPeriod.objects.filter(task=self.task).exclude(id=self.id)
+        for workperiod in workperiods:
+            if workperiod.date >= start_date and workperiod.date <= end_date:
+                points = points + workperiod.points
         
-        
+        max_points = self.task.category.max_points_per_cycle
 
+        if points > max_points:
+            return 0
+        else:
+            return max_points - points

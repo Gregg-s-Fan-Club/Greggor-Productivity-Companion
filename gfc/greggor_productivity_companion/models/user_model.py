@@ -17,13 +17,14 @@ class User(AbstractUser):
     email = models.EmailField(unique=True, blank=False)
 
     def get_user_points(self, category_type = "ALL"):
-        if category_type == "ALL":
-            tasks = gpcmodels.Task.objects.filter(user = self)
-        else:
-            tasks = gpcmodels.Task.objects.filter(user = self, category = category_type)
+        tasks = self.get_user_tasks(category_type)
         points = 0
         for task in tasks:
             points += task.get_task_points()
         return points
             
-    
+    def get_user_tasks(self, category_type = "ALL"):
+        if category_type == "ALL":
+            return gpcmodels.Task.objects.filter(user = self)
+        else:
+            return gpcmodels.Task.objects.filter(user = self, category = category_type)

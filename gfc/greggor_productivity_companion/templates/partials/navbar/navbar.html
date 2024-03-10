@@ -1,9 +1,9 @@
 {% load static %}
   
-<div class="gfcFlexRow gfcFlexContentStart gfcMediumGap bg-primary px-4 py-1">
+<div class="gfcFlexRow gfcFlexContentStart bg-primary px-4 py-1" style="gap:0 3rem">
     <a href="{% url 'log_in' %}">
         {% include 'partials/greggor_logo.html' with height=50 %}
-        <h3 class="gfcLink text-white">GFC</h3>
+        <h3 class="gfcLink text-white">GPC</h3>
     </a>
     {% if user.is_authenticated %}
       {% include 'partials/navbar/logged_in_menu.html' %}
