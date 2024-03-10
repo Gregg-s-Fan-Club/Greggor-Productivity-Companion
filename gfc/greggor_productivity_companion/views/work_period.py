@@ -24,6 +24,7 @@ def display_work_period_view(request: HttpRequest, task_type="ALL", start_date =
     for task in tasks:
        work_periods = WorkPeriod.objects.filter(task = task, date__range=(startObj.date(), endObj.date())) | work_periods
     work_periods = paginate(request.GET.get('page', 1), work_periods)
+    
     return render(request, "pages/display_work_periods.html", {'work_periods': work_periods, 'tasks': allTasks,'task_type': task_type })
 
 @login_required

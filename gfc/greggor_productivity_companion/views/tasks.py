@@ -27,7 +27,7 @@ def display_tasks_view(request: HttpRequest, category_type = "ALL", completed_ty
 
     list_of_tasks: Page = paginate(
         request.GET.get('page', 1), list_of_tasks)
-
+    
     return render(request, "pages/display_tasks.html",
                   {'tasks': list_of_tasks, 'categories': categories, 
                    'category_type': category_type,
