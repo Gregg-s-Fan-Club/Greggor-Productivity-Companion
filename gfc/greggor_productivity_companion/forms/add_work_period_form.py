@@ -74,7 +74,6 @@ class WorkPeriodForm(forms.ModelForm):
         task = self.cleaned_data.get('task')
 
         if instance is None:
-            print(1353443564)
             work_period = WorkPeriod.objects.create(
                 date = date,
                 start_time = start_time,

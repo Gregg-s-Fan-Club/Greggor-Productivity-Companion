@@ -66,7 +66,6 @@ class TaskForm(forms.ModelForm):
                 actual_work_time = task.get_actual_work_time()
                 latest_workflow = task.get_latest_task_workflow()
                 bonus_points = round(100 - abs(((task.expected_work_time - actual_work_time) / actual_work_time) * 100))
-                print(latest_workflow.get_remaining_points_for_current_cycle(), bonus_points)
                 latest_workflow.points += min(latest_workflow.get_remaining_points_for_current_cycle(), bonus_points)
                 latest_workflow.save()
                 task.bonus_points = bonus_points
