@@ -13,13 +13,13 @@
                 <h4 class="card-title text-white"> Task: {{ task.name }}</h5>
 
                 <div class="gfcFlexLast">
-                    <h6 class="card-subtitle text-silver"> 
+                    <h6 class="card-subtitle text-white"> 
                         Completed <br> <br>{% include 'partials/boolean.html' with bool=task.completed size_tag="h4" %}
                     </h6>
                 </div>
             </div>
 
-            <p class="text-silver col-12"> Description: {{ task.description }}</p>
+            <p class="text-white col-12"> Description: {{ task.description }}</p>
         </div>
         <div class="card-body gfcFlexColumn gfcSmallGap">
             <h6 class="card-subtitle text-muted col-12"> <b>Category</b>: {{ task.category.name }}</h6>
@@ -34,7 +34,8 @@
             <div class="row mt-2">
                 <div class="text-center">
                     <a class="btn btn-outline-info mx-1 my-1" href="{% url 'edit_tasks' pk=task.id %}">Edit</a>
-                    <a class="btn btn-outline-info mx-1 my-1" href="{% url 'delete_tasks' pk=task.id %}">Delete</a>
+                    <a class="btn btn-outline-danger mx-1 my-1" href="{% url 'delete_tasks' pk=task.id %}">Delete</a>
+                    <a href="{% url 'toggle_complete' pk=task.id%}" class="btn btn btn-outline-success mx-1 my-1">Toggle Complete</a>
                 </div>
             </div>    
         </div>
