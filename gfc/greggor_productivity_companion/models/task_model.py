@@ -28,6 +28,9 @@ class Task(models.Model):
     def get_task_workflows(self):
         return gpcmodels.WorkPeriod.objects.filter(task = self)
     
+    def get_latest_task_workflow(self):
+        return self.get_task_workflows().order_by('-date', '-end_time', '-start_time')[0]
+    
     def get_task_points(self):
         work_periods = self.get_task_workflows()
         points = 0
@@ -35,7 +38,7 @@ class Task(models.Model):
             points += period.points
         return points
 
-    def actual_work_time(self):
+    def get_actual_work_time(self):
         work_periods = self.get_task_workflows()
         if len(work_periods) == 0:
              return "0:00:00"

@@ -8,6 +8,7 @@ from greggor_productivity_companion.helpers import paginate
 from django.core.paginator import Page
 from django.contrib import messages
 from itertools import chain
+from django.core.exceptions import ObjectDoesNotExist
 
 @login_required
 def display_work_period_view(request: HttpRequest, task_type="ALL") -> HttpRequest:
@@ -31,11 +32,11 @@ def create_work_period(request: HttpRequest) -> HttpResponse:
 
     user = request.user
     if request.method == 'POST':
-        form = WorkPeriodForm(user,request.POST)
+        form = WorkPeriodForm(user, request.POST)
+        # print(form)
         if form.is_valid():
-            form.save(user)
-            messages.add_message(
-                request, messages.SUCCESS, "Your work period has been added successfully")
+            form.save()
+            messages.add_message(request, messages.SUCCESS, "Your work period has been added successfully")
             return redirect('dashboard',)
     else:
         form = WorkPeriodForm(user)
@@ -57,9 +58,9 @@ def edit_work_periods(request: HttpRequest, pk):
     
     if request.method =='POST':
         form = WorkPeriodForm(
-            user, request.POST, instance = work_period)
+            user, request.POST, instance=work_period)
         if form.is_valid():
-            form.save(instance = work_period)
+            form.save(instance=work_period)
             messages.add_message(
                 request,
                 messages.SUCCESS,
@@ -74,19 +75,19 @@ def delete_work_period(request: HttpRequest, pk) -> HttpResponse:
     """View to delete a task"""
     try:
         work_period = WorkPeriod.objects.get(id=pk)
-        task: Task = request.task
-        if (work_period.task != task):
+        user = request.user
+        if (work_period.task.user != user):
             return redirect('dashboard')
     except ObjectDoesNotExist:
         messages.add_message(
             request,
             messages.ERROR,
-            "This task cannot be deleted.")
+            "This work period cannot be deleted.")
         return redirect('dashboard')
     else:
         work_period.delete()
         messages.add_message(
             request,
             messages.WARNING,
-            "The transaction has been deleted")
+            "The work period has been deleted")
         return redirect('dashboard')

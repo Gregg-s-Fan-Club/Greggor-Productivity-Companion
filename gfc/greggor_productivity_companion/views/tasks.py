@@ -7,6 +7,7 @@ from django.urls import reverse
 from greggor_productivity_companion.helpers import paginate
 from django.core.paginator import Page
 from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
 
 
 @login_required
@@ -23,7 +24,7 @@ def display_tasks_view(request: HttpRequest, category_type = "ALL", completed_ty
         list_of_tasks=list_of_tasks.filter(completed = True)
     elif completed_type == "Uncompleted":
         list_of_tasks=list_of_tasks.filter(completed = False)
-
+    list_of_tasks[0].get_latest_task_workflow()
     list_of_tasks: Page = paginate(
         request.GET.get('page', 1), list_of_tasks)
 
@@ -75,7 +76,7 @@ def edit_tasks(request: HttpRequest, pk) -> HttpResponse:
 
     if request.method == 'POST':
         form = TaskForm(
-            user, request.POST, instance = task)
+            user, request.POST, instance=task)
         if form.is_valid():
             form.save(instance = task)
             messages.add_message(
@@ -106,7 +107,7 @@ def delete_tasks(request: HttpRequest, pk) -> HttpResponse:
         messages.add_message(
             request,
             messages.WARNING,
-            "The transaction has been deleted")
+            "The task has been deleted")
         return redirect('dashboard')
 
 def view_individual_task(request: HttpRequest, pk) -> HttpResponse:
