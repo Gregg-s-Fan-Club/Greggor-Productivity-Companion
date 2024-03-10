@@ -19,7 +19,7 @@
     <a href='{% url 'create_tasks' %}' class="btn btn-info">New Task</a>
   </div>
   
-  <div class="col-12 col-md-3 gfcFlexLast">
+  <div class="gfcFlexLast">
     <div class="card h-100 border-0">
       <form class="p-2"action="{% url 'filter_task_request'%}" method="post" id="filterRequestForm">
         {% csrf_token %}
@@ -27,7 +27,7 @@
         <input type="hidden" id="submitFilterCategory" name="category">
         <input type="hidden" id="submitFilterCompleted" name="completed">
 
-        <div class="gfcFlewRow gfcSmallGap">
+        <div class="gfcFlexRow gfcSmallGap">
           <select id="selectCategory">
             {% if category_type == "ALL" %}
               <option value="ALL" selected>All Categories</option>
@@ -61,11 +61,9 @@
               <option value="Uncompleted">Uncompleted</option>
             {% endif %}
           </select>
+
+          <div onclick="submitFilterCategoryForm()" class="btn btn-primary">Filter</div>
         </div>
-
-        </br>
-
-        <div onclick="submitFilterCategoryForm()" class="btn btn-primary">Filter</div>
       </form>
     </div>
   </div>

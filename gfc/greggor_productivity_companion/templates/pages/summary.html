@@ -19,7 +19,7 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item"><b>Description</b> <br> {{task.description}}</li>
             <li class="list-group-item"><b>Expected Work Time</b> <br> {{task.expected_work_time}}</li>
-            <li class="list-group-item"><b>Actual Work Time</b> <br> {{task.actual_work_time}}</li>
+            <li class="list-group-item"><b>Actual Work Time</b> <br> {{task.get_actual_work_time}}</li>
             <li class="list-group-item"><b>Category</b> <br> {{task.category.name}}</li>
             <li class="list-group-item"><b>Completed</b> <br> {% include 'partials/boolean.html' with bool=task.completed size_tag="h4" %}</li>
           </ul>
