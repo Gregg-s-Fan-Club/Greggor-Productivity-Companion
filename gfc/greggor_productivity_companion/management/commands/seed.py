@@ -157,7 +157,7 @@ class Command(BaseCommand):
             date= datetime(2024, 3, 8),
             start_time = "12:12:12",
             end_time ="13:13:13",
-            points = 290,
+            points = 190,
             task=task
             )
         if not WorkPeriod.objects.filter(date = datetime(2024, 3, 1), start_time="12:12:12", end_time ="14:14:14", task=task):
@@ -165,7 +165,7 @@ class Command(BaseCommand):
             date= datetime(2024, 3, 1),
             start_time = "12:12:12",
             end_time ="14:14:14",
-            points = 30,
+            points = 60,
             task=task
         
             )
