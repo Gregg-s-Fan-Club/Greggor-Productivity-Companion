@@ -28,6 +28,7 @@ urlpatterns = [
     ),
     path('log_out/', views.log_out_view, name='log_out'),
     path('sign_up/', views.sign_up_view, name='sign_up'),
+    path('', views.sign_up_view, name='home'),
     path('dashboard/', views.dashboard_view, name='dashboard'),
     path('profile/', views.profile_view, name='profile'),
     path('profile_change_icon/<str:icon_name>/', views.profile_change_icon, name='profile_change_icon'),

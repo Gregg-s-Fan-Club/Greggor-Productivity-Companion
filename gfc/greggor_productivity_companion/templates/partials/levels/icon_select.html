@@ -4,6 +4,8 @@
 {% for icon in profile_icons %}
   <div class="rounded p-2 bg-white gfcClickable w-10">
       <a href="{% url 'profile_change_icon' icon_name=icon %}">{% include 'partials/greggor_logo.html' with height=100 greggor_type=icon %}</a>
+
+      <h6>{{icon}}</h6>
   </div>
 {% endfor %}
 </div>

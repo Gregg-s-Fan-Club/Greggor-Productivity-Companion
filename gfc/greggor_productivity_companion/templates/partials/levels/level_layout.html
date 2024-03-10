@@ -1,4 +1,7 @@
 {% load static %}
 {% load get_logo %}
 
-<img src="{% static level|get_level_path %}" class="{{class}}" alt="Level Map" height="{{height}}" width="{{width}}" style="{{style}}"/>
+<div class="gfcFlexRow gfcMediumGap">
+    <img class="rounded border border-primary border-3 col-12 col-md-6" src="{% static level|get_level_path %}" alt="Level Map" height="{{1424}}" width="{{width}}" style="{{style}}"/>
+    <p class="border border-3 border-primary bg-white rounded text-primary col-12 col-md-5 p-5" style="height:1424px">{{level|get_level_story}}</p>
+</div>
