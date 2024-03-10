@@ -28,3 +28,6 @@ class User(AbstractUser):
             return gpcmodels.Task.objects.filter(user = self)
         else:
             return gpcmodels.Task.objects.filter(user = self, category = category_type)
+
+    def get_level(self):
+        return round(self.get_user_points()/100)
