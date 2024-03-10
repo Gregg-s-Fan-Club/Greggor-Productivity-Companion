@@ -15,45 +15,38 @@
     <a href='{% url 'create_work_period' %}' class="btn btn-info">New Work Period</a>
   </div>
   
-  <div class="col-12 col-md-3 gfcFlexLast">
-    <div class="card h-100 border-0">
-      <form class="p-2"action="{% url 'filter_task_type_request'%}" method="post" id="filterRequestForm">
-        {% csrf_token %}
+    <form class="gfcFlexRow gfcSmallGap p-2 gfcFlexLast" action="{% url 'filter_task_type_request'%}" method="post" id="filterRequestForm">
+      {% csrf_token %}
 
-        <input type="hidden" id="submitFilterTask" name="task">
+      <input type="hidden" id="submitFilterTask" name="task">
 
-        <div class="gfcFlewRow gfcSmallGap">
+      <select id="selectTask">
+        {% if task_type == "ALL" %}
+          <option value="ALL" selected>All Tasks</option>
+        {% else %}
+          <option value="ALL">All Tasks</option>
+        {% endif %}
 
-          <select id="selectTask">
-            {% if task_type == "ALL" %}
-              <option value="ALL" selected>All Tasks</option>
-            {% else %}
-              <option value="ALL">All Tasks</option>
-            {% endif %}
+        {% for task in tasks %}
+          {% if task_type == task %}
+            <option value="{{task.name}}" selected>{{task.name}}</option>
+          {% else %}
+            <option value="{{task.name}}">{{task.name}}</option>
+          {% endif %}
+        {% endfor %}
+      </select>
 
-            {% for task in tasks %}
-              {% if task_type == task %}
-                <option value="{{task.name}}" selected>{{task.name}}</option>
-              {% else %}
-                <option value="{{task.name}}">{{task.name}}</option>
-              {% endif %}
-            {% endfor %}
-          </select>
-        </div>
-        <div>
-          <label for="start">Start date:</label>
-          <input type="date" id="start" name="start_date" value="2016-01-01" min="2016-01-01" max="2140-12-31" />
-        </div>
-        <div>
-          <label for="end">End date:</label>
-          <input type="date" id="end" name="end_date" value="2140-07-22" min="2016-01-01" max="2140-12-31" />
-        </div>
-        </br>
+      <div>
+        <label for="start">Start date:</label>
+        <input type="date" id="start" name="start_date" value="2016-01-01" min="2016-01-01" max="2140-12-31" />
+      </div>
+      <div>
+        <label for="end">End date:</label>
+        <input type="date" id="end" name="end_date" value="2140-07-22" min="2016-01-01" max="2140-12-31" />
+      </div>
 
-        <div onclick="submitFilterTaskForm()" class="btn btn-primary">Filter</div>
-      </form>
-    </div>
-  </div>
+      <div onclick="submitFilterTaskForm()" class="btn btn-primary">Filter</div>
+    </form>
 </div>
 
 </br>
