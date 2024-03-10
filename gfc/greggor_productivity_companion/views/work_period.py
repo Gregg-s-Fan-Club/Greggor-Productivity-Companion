@@ -40,7 +40,7 @@ def create_work_period(request: HttpRequest) -> HttpResponse:
         if form.is_valid():
             form.save()
             messages.add_message(request, messages.SUCCESS, "Your work period has been added successfully")
-            return redirect('dashboard',)
+            return redirect('display_work_period_view',)
     else:
         form = WorkPeriodForm(user)
     return render(request, "pages/add_work_period.html", {'form': form, 'edit': False})
@@ -56,13 +56,13 @@ def edit_work_periods(request: HttpRequest, pk):
             request,
             messages.ERROR,
             "This work period cannot be edited")
-            return redirect('dashboard')
+            return redirect('display_work_period_view')
     except ObjectDoesNotExist:
         messages.add_message(
             request,
             messages.ERROR,
             "This work period cannot be edited")
-        return redirect('dashboard')
+        return redirect('display_work_period_view')
     
     if request.method =='POST':
         form = WorkPeriodForm(
@@ -86,20 +86,20 @@ def delete_work_period(request: HttpRequest, pk) -> HttpResponse:
         work_period = WorkPeriod.objects.get(id=pk)
         user = request.user
         if (work_period.task.user != user):
-            return redirect('dashboard')
+            return redirect('display_work_period_view')
     except ObjectDoesNotExist:
         messages.add_message(
             request,
             messages.ERROR,
             "This work period cannot be deleted.")
-        return redirect('dashboard')
+        return redirect('display_work_period_view')
     else:
         work_period.delete()
         messages.add_message(
             request,
             messages.WARNING,
             "The work period has been deleted")
-        return redirect('dashboard')
+        return redirect('display_work_period_view')
 
 def view_individual_work_period(request: HttpRequest, pk) -> HttpResponse:
     """View to view a work period"""

@@ -52,7 +52,7 @@ def create_tasks(request: HttpRequest) -> HttpResponse:
                 request,
                 messages.SUCCESS,
                 "Your task has been successfully added")
-            return redirect('dashboard',)
+            return redirect('display_tasks',)
     else:
         form = TaskForm(user)
     return render(request, "pages/add_task.html",
@@ -65,13 +65,13 @@ def edit_tasks(request: HttpRequest, pk) -> HttpResponse:
         task = Task.objects.get(id=pk)
         user: User = request.user
         if (task.user != user):
-            return redirect('dashboard')
+            return redirect('display_tasks')
     except ObjectDoesNotExist:
         messages.add_message(
             request,
             messages.ERROR,
             "This task cannot be edited.")
-        return redirect('dashboard')
+        return redirect('display_tasks')
 
 
     if request.method == 'POST':
@@ -83,7 +83,7 @@ def edit_tasks(request: HttpRequest, pk) -> HttpResponse:
                 request,
                 messages.SUCCESS,
                 "Your task has been successfully updated")
-            return redirect('dashboard',)
+            return redirect('display_tasks',)
     else:
         form = TaskForm(user, instance=task)
     return render(request, "pages/add_task.html",
@@ -95,20 +95,20 @@ def delete_tasks(request: HttpRequest, pk) -> HttpResponse:
         task = Task.objects.get(id=pk)
         user: User = request.user
         if (task.user != user):
-            return redirect('dashboard')
+            return redirect('display_tasks')
     except ObjectDoesNotExist:
         messages.add_message(
             request,
             messages.ERROR,
             "This task cannot be deleted.")
-        return redirect('dashboard')
+        return redirect('display_tasks')
     else:
         task.delete()
         messages.add_message(
             request,
             messages.WARNING,
             "The task has been deleted")
-        return redirect('dashboard')
+        return redirect('display_tasks')
 
 def view_individual_task(request: HttpRequest, pk) -> HttpResponse:
     """View to view a task"""
