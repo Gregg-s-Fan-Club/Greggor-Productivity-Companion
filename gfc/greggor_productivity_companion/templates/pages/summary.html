@@ -30,10 +30,10 @@
     </div>  
 
     <hr class="hr" />
+
     <h1 align="center">Statistics</h1><br>
     <div class="container" align="center">
-
-      <div class="row">
+      <div class="gfcFlexRow gfcSmallGap">
         <div class="col-sm">
           <div class="card" style="width: 18rem; height: 13rem;">
             <div class="card-body">
@@ -66,11 +66,7 @@
             </div>
           </div>
         </div>
-      </div>
-    
-    <br>
-    <div class="container" align="center">
-      <div class="row">
+      
         <div class="col-sm">
           <div class="card" style="width: 18rem; height: 13rem;">
             <div class="card-body">
@@ -95,12 +91,13 @@
             </div>
           </div>
         </div>
-        
       </div>
     </div>
   </div>
 
-      <br>
+  <br>
+  <hr class="hr" />
+  <br>
 
     {% include 'partials/graphs/categoryHoursSpentBarChart.html' with data=user_workflow_data %}
   </div>

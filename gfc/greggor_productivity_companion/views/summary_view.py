@@ -88,7 +88,7 @@ def summary_view(request: HttpRequest) -> HttpResponse:
         'tasks': recent_tasks, 
         'hours_spent_month': round(total_hours_month,2),
         'hours_spent_week': round(total_hours_week,2),
-        'hours_spent_day' : total_hours_day,
+        'hours_spent_day' : round(total_hours_day, 2),
         'highest_day_hours': highest_day_hours,
         'lowest_day_hours': lowest_day_hours,
         'highest_day_points': highest_day_points,
